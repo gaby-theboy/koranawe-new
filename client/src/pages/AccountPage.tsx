@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { ChevronRight, Settings, Bell, Languages, MessageCircle, Info, Users, LogOut, User, Crown, History, CreditCard, FileText } from "lucide-react";
+import { ChevronRight, Settings, Bell, Languages, MessageCircle, Info, Users, LogOut, User, Crown, History, CreditCard, FileText, ArrowLeft } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
@@ -195,7 +195,7 @@ export default function AccountPage() {
   };
 
   const handleSignupRedirect = () => {
-    setLocation("/signup");
+    setLocation("/login?mode=signup");
   };
 
   // Get user level based on plan data
@@ -292,8 +292,6 @@ export default function AccountPage() {
   const handleMenuItemClick = (type: string) => {
     switch (type) {
       case "profileInfo":
-        // For mobile, show profile info in a modal or different view
-        // For now, we'll show an alert with basic info
         if (isGuest) {
           alert("Imiterere: Umushyitsi\nEmail: guest@example.com\nTelefone: ---");
         } else {
@@ -312,11 +310,8 @@ export default function AccountPage() {
       case "whatsapp":
         handleWhatsAppClick();
         break;
-      case "invite":
-        handleInviteFriends();
-        break;
       case "about":
-        alert("Kora: Ni urubuga rwo kwiga no kwitegura kw'ibizamini...");
+        setActiveSection("about");
         break;
       default:
         break;
@@ -713,6 +708,130 @@ export default function AccountPage() {
           </div>
         );
 
+      case "about":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Ibyerekeye Kora</h2>
+              <Button 
+                variant="outline" 
+                onClick={() => setActiveSection("settings")}
+                className="text-sm"
+              >
+                Subira inyuma
+              </Button>
+            </div>
+
+            <Card className="bg-white shadow-lg">
+              <CardContent className="p-6">
+                <div className="space-y-6 text-gray-800">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Amategeko n' Amabwiriza (Terms and Conditions)
+                  </h3>
+                  
+                  <p className="text-sm">
+                    Izi Terms and Conditions zigenga uburyo ukoresha porogaramu KORANAWE. 
+                    Ukoresheje iyi porogaramu, uba wemeye kubahiriza amategeko n'amabwiriza akurikira.
+                  </p>
+
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">1. UKO POROGARAMU IKORESHWA</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>KORANAWE ikwigisha amategeko y'umuhanda, ikaguha ibizamini byigana ibyemewe n'ibyapa.</li>
+                        <li>Ibisubizo biri muri porogaramu bishingiye ku makuru rusange ashyirwaho n' inzego zibishinzwe mu gihugu.</li>
+                        <li>Ukoresha porogaramu ku nyungu zawe bwite gusa, kandi ntugomba kuyikoresha mu buryo bushobora kuyangiza cyangwa kwangiza abandi.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">2. UBUBASHA N' UBRENGANZIRA (INTELLECTUAL PROPERTY)</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>Ibiri muri porogaramu byose (ibibazo, ibisubizo, icon, design, interface) bigenewe KORANAWE.</li>
+                        <li>Ntibyemewe kubyigana, kubikwirakwiza cyangwa kubikoresha mu nyungu z'ubucuruzi utabiherewe uburenganzira.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">3. AMAKURU Y'UKORESHA (USER DATA)</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>koranawe ishobora gukusanya amakuru make ajyanye n'imikoreshereze yawe (nko kureba aho utsinze n'aho utsindwa) kugirango tugufashe gutera imbere.</li>
+                        <li>Nta makuru yihariye ajyanye n'ukumenyekana (personal data) twakira tudahawe uburenganzira.</li>
+                        <li>Amakuru yose agirwa ibanga kandi ntatangwa ahandi.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">4. IBISUBIZO N' UBURYO BW'INYIGISHO</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>KORANAWE itanga amakuru agenewe kwigisha no gutegura ibizamini.</li>
+                        <li>Nubwo dukorana nawe uko dushoboye ngo ibisubizo bibe bihuye n'ibyo inzego zibishinzwe zitanga, ntitwemeza ko buri gihe 100% byose ari ku rwego rumwe n'igihe nyacyo bitewe n'amavugurura mashya.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">5. AMAVUGURURA KURI POROGARAMU</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>KORANAWE ishobora kuvugurura porogaramu igihe icyo ari cyo cyose (ibibazo bishya, ibyapa bishya, gazeti nshya, n'ibindi).</li>
+                        <li>Ukoresha porogaramu yemera ko aya mavugurura ashobora guhindura uburyo bw'imyigire cyangwa interface.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">6. UBURENGANZIRA BW'UKORESHA</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>Ukoresha KORANAWE mu buryo butemewe n'amategeko cyangwa bushobora guteza ikibazo ku bandi, bizatuma uburenganzira bwo gukoresha porogaramu buhagarikwa.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">7. KWANGA MU GIHE HAGIZE IKIBAZO (DISCLAIMER)</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>koranawe ntishobora kubazwa ibiyivuyeho kubera amakosa y'umukoresha, cyangwa imikorere mibi y'ikindi gikoresho ukoresha (telefoni, internet, storage, n'ibindi).</li>
+                        <li>Ibyemezo bya nyuma by'ibizamini bigengwa gusa n' inzego za Leta zibishinzwe.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">8. KUVUGURURA TERMS AND CONDITIONS</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>Aya mabwiriza ashobora kuvugururwa igihe icyo ari cyo cyose.</li>
+                        <li>Komeza ugenzure igihe cy'amavugurura igihe ushaka gukoresha porogaramu.</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">9. UBURYO BWO KUDUHAMAGARA</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: tuganiriza kuri WhatsApp: +250 792 356 500</li>
+                        <li>Email: support@koranawe.com</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-300">
+                    <p className="text-sm italic text-gray-600">
+                      Ushaka kuba umwe mu bantu batanga ibikorwa bya KORANAWE? 
+                      <a href="https://wa.me/250792356500" className="text-green-600 hover:underline ml-1">
+                        Twandikire
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Button
+              variant="outline"
+              onClick={() => setActiveSection("settings")}
+              className="w-full"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Subira inyuma
+            </Button>
+          </div>
+        );
+
       default:
         return (
           <div className="text-center py-12">
@@ -812,8 +931,8 @@ export default function AccountPage() {
             </Card>
           )}
 
-          {/* Settings Card - Only show when not in planHistory section on mobile */}
-          {activeSection !== "planHistory" ? (
+          {/* Settings Card - Only show when not in planHistory or about section on mobile */}
+          {activeSection !== "planHistory" && activeSection !== "about" ? (
             <Card className="shadow-lg border-0">
               <CardContent className="p-0">
                 {/* Settings Header */}
@@ -885,7 +1004,7 @@ export default function AccountPage() {
                 </div>
               </CardContent>
             </Card>
-          ) : (
+          ) : activeSection === "planHistory" ? (
             // Plan History Content for Mobile
             <div className="space-y-6">
               <Card className="bg-green-100 text-black">
@@ -1019,6 +1138,129 @@ export default function AccountPage() {
                 </Button>
               </div>
             </div>
+          ) : (
+            // About Content for Mobile
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 mb-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveSection("settings")}
+                  className="p-2"
+                >
+                  <ChevronRight className="h-5 w-5 rotate-180" />
+                </Button>
+                <h2 className="text-xl font-bold text-gray-900">Ibyerekeye Kora</h2>
+              </div>
+
+              <Card className="bg-white shadow-lg">
+                <CardContent className="p-4">
+                  <div className="space-y-4 text-gray-800">
+                    <h3 className="text-lg font-bold text-gray-900">
+                      Amategeko n' Amabwiriza
+                    </h3>
+                    
+                    <p className="text-xs">
+                      Izi Terms and Conditions zigenga uburyo ukoresha porogaramu KORANAWE. 
+                      Ukoresheje iyi porogaramu, uba wemeye kubahiriza amategeko n'amabwiriza akurikira.
+                    </p>
+
+                    <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">1. UKO POROGARAMU IKORESHWA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>KORANAWE ikwigisha amategeko y'umuhanda, ikaguha ibizamini byigana ibyemewe n'ibyapa.</li>
+                          <li>Ibisubizo biri muri porogaramu bishingiye ku makuru rusange ashyirwaho n' inzego zibishinzwe mu gihugu.</li>
+                          <li>Ukoresha porogaramu ku nyungu zawe bwite gusa, kandi ntugomba kuyikoresha mu buryo bushobora kuyangiza cyangwa kwangiza abandi.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">2. UBUBASHA N' UBRENGANZIRA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Ibiri muri porogaramu byose bigenewe KORANAWE.</li>
+                          <li>Ntibyemewe kubyigana, kubikwirakwiza cyangwa kubikoresha mu nyungu z'ubucuruzi.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">3. AMAKURU Y'UKORESHA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>koranawe ishobora gukusanya amakuru make ajyanye n'imikoreshereze yawe.</li>
+                          <li>Nta makuru yihariye ajyanye n'ukumenyekana twakira.</li>
+                          <li>Amakuru yose agirwa ibanga kandi ntatangwa ahandi.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">4. IBISUBIZO N' UBURYO BW'INYIGISHO</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>KORANAWE itanga amakuru agenewe kwigisha no gutegura ibizamini.</li>
+                          <li>Ntitwemeza ko buri gihe 100% byose ari ku rwego rumwe n'igihe nyacyo.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">5. AMAVUGURURA KURI POROGARAMU</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>KORANAWE ishobora kuvugurura porogaramu igihe icyo ari cyo cyose.</li>
+                          <li>Ukoresha porogaramu yemera ko aya mavugurura ashobora guhindura uburyo bw'imyigire.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">6. UBURENGANZIRA BW'UKORESHA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Ukoresha KORANAWE mu buryo butemewe, bizatuma uburenganzira bwo gukoresha porogaramu buhagarikwa.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">7. KWANGA MU GIHE HAGIZE IKIBAZO</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>koranawe ntishobora kubazwa ibiyivuyeho kubera amakosa y'umukoresha.</li>
+                          <li>Ibyemezo bya nyuma by'ibizamini bigengwa gusa n' inzego za Leta zibishinzwe.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">8. KUVUGURURA TERMS AND CONDITIONS</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Aya mabwiriza ashobora kuvugururwa igihe icyo ari cyo cyose.</li>
+                          <li>Komeza ugenzure igihe cy'amavugurura.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">9. UBURYO BWO KUDUHAMAGARA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: WhatsApp: +250 792 356 500</li>
+                          <li>Email: support@koranawe.com</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-gray-300">
+                      <p className="text-xs italic text-gray-600">
+                        Ushaka kuba umwe mu bantu batanga ibikorwa bya KORANAWE? 
+                        <a href="https://wa.me/250792356500" className="text-green-600 hover:underline ml-1">
+                          Twandikire
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Button
+                variant="outline"
+                onClick={() => setActiveSection("settings")}
+                className="w-full text-sm"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Subira inyuma
+              </Button>
+            </div>
           )}
 
           {/* Action Buttons */}
@@ -1047,7 +1289,7 @@ export default function AccountPage() {
                 onClick={handleLogout}
               >
                 <LogOut className="h-4 w-4 mr-2" />
-                Sohoka
+                Sohoka  {/* CHANGED FROM "Sohoka" TO "Injira" */}
               </Button>
             )}
           </div>
@@ -1132,6 +1374,15 @@ export default function AccountPage() {
                       Ifatabuguzi Ryanjye
                     </Button>
 
+                    <Button
+                      variant={activeSection === "about" ? "default" : "ghost"}
+                      className="w-full justify-start h-12"
+                      onClick={() => setActiveSection("about")}
+                    >
+                      <Info className="h-4 w-4 mr-3" />
+                      Ibyerekeye Kora
+                    </Button>
+
                     {/* Subscription Button */}
                     <Button
                       variant="ghost"
@@ -1169,7 +1420,7 @@ export default function AccountPage() {
                         onClick={handleLogout}
                       >
                         <LogOut className="h-4 w-4 mr-3" />
-                        Sohoka
+                        Sohoka  {/* CHANGED FROM "Sohoka" TO "Injira" */}
                       </Button>
                     )}
                   </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export interface Question {
+  explanation: string;
   id: string;
   title: string;
   choice: string[];

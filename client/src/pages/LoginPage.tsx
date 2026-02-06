@@ -28,7 +28,7 @@ export default function LoginPage() {
   const [selectedCountry, setSelectedCountry] = useState({
     id: "bbd058bf-d701-4c17-94c1-05ba0d054c19",
     title: "Rwanda",
-    code: "+250",
+    code: "250",
     image: "https://flagcdn.com/w320/rw.png",
     country: "Rwanda",
   });
@@ -67,7 +67,7 @@ export default function LoginPage() {
             {
               id: "bbd058bf-d701-4c17-94c1-05ba0d054c19",
               title: "Rwanda",
-              code: "+250",
+              code: "250",
               image: "https://flagcdn.com/w320/rw.png",
               country: "Rwanda",
             },
@@ -81,7 +81,7 @@ export default function LoginPage() {
           {
             id: "bbd058bf-d701-4c17-94c1-05ba0d054c19",
             title: "Rwanda",
-            code: "+250",
+            code: "250",
             image: "https://flagcdn.com/w320/rw.png",
             country: "Rwanda",
           },
@@ -107,133 +107,133 @@ export default function LoginPage() {
     }
   }, [searchQuery, countries]);
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setError("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-  // Validation for empty fields
-  if (!email && !phone) {
-    setError("Please enter either email or phone number");
-    setIsLoading(false);
-    return;
-  }
-
-  if (!password) {
-    setError("Please enter a password");
-    setIsLoading(false);
-    return;
-  }
-
-  try {
-    if (isSignup) {
-      // Signup logic
-      if (password !== confirmPassword) {
-        setError("Passwords do not match");
-        setIsLoading(false);
-        return;
-      }
-
-      if (password.length < 6) {
-        setError("Password must be at least 6 characters long");
-        setIsLoading(false);
-        return;
-      }
-
-      const signupData = {
-        loginEmail: email ? email.toLowerCase().trim() : "",
-        firstName: firstName || "",
-        lastName: lastName || "",
-        password: password,
-        phoneNumber: phone || "",
-        languageCode: "rw", // Default language code
-        id: "", // Empty as per new payload
-        phoneCountryCode: phone ? {
-          code: selectedCountry.code,
-          country: selectedCountry.country,
-          id: selectedCountry.id
-        } : undefined
-      };
-
-      console.log("Sending signup data:", signupData);
-
-      const response = await fetch("https://dataapis.wixsite.com/kora/_functions/signUp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupData),
-      });
-
-      const result = await response.json();
-      console.log("Signup response:", result);
-
-      // Check for success based on statusCode
-      if (response.ok && result.statusCode === 200) {
-        console.log("Signup successful:", result);
-        // Store user data in localStorage
-        if (result.details) {
-          localStorage.setItem("user", JSON.stringify(result.details));
-        }
-        window.location.href = redirectTo;
-      } else {
-        // Handle error from backend
-        setError(result.message || "Signup failed. Please try again.");
-      }
-    } else {
-      // Login logic
-      const loginData = {
-        password: password,
-        loginEmail: email ? email.toLowerCase().trim() : "",
-        phoneNumber: phone ? `${selectedCountry.code}${phone}` : "",
-        languageCode: "rw" // Default language code
-      };
-
-      console.log("Sending login data:", loginData);
-
-      const response = await fetch("https://dataapis.wixsite.com/kora/_functions/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-      });
-
-      const result = await response.json();
-      console.log("Login response:", result);
-
-      // Check for success based on login flag and statusCode
-      if (response.ok && result.login && result.statusCode === 200) {
-        console.log("Login successful:", result.details);
-        if (result.details) {
-          localStorage.setItem("user", JSON.stringify(result.details));
-        }
-        window.location.href = redirectTo;
-      } else {
-        // Handle error from backend
-        setError(result.message || getLoginErrorMessage(result.error));
-      }
+    // Validation for empty fields - RESTORED PROPER VALIDATION
+    if (!email && !phone) {
+      setError("Nyamuneka andika email cyangwa numero ya telefoni");
+      setIsLoading(false);
+      return;
     }
-  } catch (error) {
-    console.error("Authentication error:", error);
-    setError("An error occurred. Please try again.");
-  } finally {
-    setIsLoading(false);
-  }
-};
 
-const getLoginErrorMessage = (errorCode: string) => {
-  switch (errorCode) {
-    case "-19999":
-      return "User not found. Please check your credentials or sign up.";
-    case "-19976":
-      return "Incorrect password. Please try again.";
-    case "01":
-      return "Email/phone and password are required.";
-    default:
-      return "Login failed. Please try again.";
-  }
-};
+    if (!password) {
+      setError("Nyamuneka andika ijambobanga");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      if (isSignup) {
+        // Signup logic
+        if (password !== confirmPassword) {
+          setError("Ijambobanga ntabwo bihuye");
+          setIsLoading(false);
+          return;
+        }
+
+        if (password.length < 6) {
+          setError("Ijambobanga rigomba kuba ririmo nibura imibare 6");
+          setIsLoading(false);
+          return;
+        }
+
+        const signupData = {
+          loginEmail: email ? email.toLowerCase().trim() : "",
+          firstName: firstName || "",
+          lastName: lastName || "",
+          password: password,
+          phoneNumber: phone || "",
+          languageCode: "rw",
+          id: "",
+          phoneCountryCode: phone ? {
+            code: selectedCountry.code,
+            country: selectedCountry.country,
+            id: selectedCountry.id
+          } : undefined
+        };
+
+        console.log("Sending signup data:", signupData);
+
+        const response = await fetch("https://dataapis.wixsite.com/kora/_functions/signUp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupData),
+        });
+
+        const result = await response.json();
+        console.log("Signup response:", result);
+
+        if (response.ok && result.statusCode === 200) {
+          console.log("Signup successful:", result);
+          if (result.details) {
+            localStorage.setItem("user", JSON.stringify(result.details));
+          }
+          window.location.href = redirectTo;
+        } else {
+          setError(result.message || "Kwandika ntibyakunze. Ongera ugerageze.");
+        }
+      } else {
+        // Login logic - ALLOW BOTH EMAIL AND PHONE BUT WITH AUTO-HIDING
+        const loginData: any = {
+          password: password,
+          languageCode: "rw"
+        };
+
+        // Add email OR phone based on what's provided
+        if (email) {
+          loginData.loginEmail = email.toLowerCase().trim();
+        } else if (phone) {
+          loginData.loginEmail = `${selectedCountry.code}${phone}${'@gmail.com'}`;
+        }
+
+        console.log("Sending login data:", loginData);
+
+        const response = await fetch("https://dataapis.wixsite.com/kora/_functions/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        });
+
+        const result = await response.json();
+        console.log("Login response:", result);
+
+        if (response.ok && result.login && result.statusCode === 200) {
+          console.log("Login successful:", result.details);
+          if (result.details) {
+            localStorage.setItem("user", JSON.stringify(result.details));
+          }
+          window.location.href = redirectTo;
+        } else {
+          setError(result.message || getLoginErrorMessage(result.error));
+        }
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+      setError("Habayeho ikosa. Nyamuneka ongera ugerageze.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getLoginErrorMessage = (errorCode: string) => {
+    switch (errorCode) {
+      case "-19999":
+        return "Ntabwo usanzwe ufite konti. Reba email/numero ya telefoni cyangwa wandike.";
+      case "-19976":
+        return "Ijambobanga ntabwo ari ryo. Ongera ugerageze.";
+      case "01":
+        return "Email/numero ya telefoni na jambobanga bikenewe.";
+      default:
+        return "Kwinjira ntibyakunze. Ongera ugerageze.";
+    }
+  };
 
   const toggleMode = () => {
     setIsSignup(!isSignup);
@@ -260,6 +260,7 @@ const getLoginErrorMessage = (errorCode: string) => {
   const handleInputChange = (field: string, value: string) => {
     if (field === "email") {
       setEmail(value);
+      // RESTORED AUTO-HIDING: Hide phone field when email is entered
       if (value.length > 0) {
         setShowPhone(false);
       } else {
@@ -268,6 +269,7 @@ const getLoginErrorMessage = (errorCode: string) => {
     } else if (field === "phone") {
       const numericValue = value.replace(/\D/g, "");
       setPhone(numericValue);
+      // RESTORED AUTO-HIDING: Hide email field when phone is entered
       if (numericValue.length > 0) {
         setShowEmail(false);
       } else {
@@ -303,16 +305,13 @@ const getLoginErrorMessage = (errorCode: string) => {
         </div>
         
         {/* Text Overlay */}
-        <div className="relative z-10 flex flex-col justify-center p-12 text-white max-w-lg">
+        <div className="relative z-10 flex flex-col justify-center p-6 text-white max-w-lg">
           <div className="mb-8">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mb-6 shadow-lg">
-              <span className="text-primary-foreground font-bold text-2xl">Kora</span>
-            </div>
-            <h1 className="text-4xl font-bold mb-4">
-              Welcome to Kora
+            <h1 className="text-4xl font-bold mb-2 text-green-500">
+              Murakaza neza kuri KoraNawe
             </h1>
-            <p className="text-xl text-gray-200 mb-6">
-              Your trusted partner in finding the perfect home. Join thousands of satisfied tenants and landlords.
+            <p className="text-lg text-gray-200 mb-2">
+              Umufasha wanyu wizewe mu gukura inzu y'umwami. Jya mu muryango w'abakodesha n'abakodeshwa bishimiye.
             </p>
           </div>
           
@@ -321,19 +320,19 @@ const getLoginErrorMessage = (errorCode: string) => {
               <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">✓</span>
               </div>
-              <span className="text-lg">Find your dream home</span>
+              <span className="text-sm">Shaka inzu yawe y'umwami</span>
             </div>
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">✓</span>
               </div>
-              <span className="text-lg">Secure and reliable</span>
+              <span className="text-sm">Umutekano n'ubudahemuka</span>
             </div>
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">✓</span>
               </div>
-              <span className="text-lg">Easy payment process</span>
+              <span className="text-sm">Uburyo bworoshye bwo kwishyura</span>
             </div>
           </div>
         </div>
@@ -362,10 +361,10 @@ const getLoginErrorMessage = (errorCode: string) => {
           <Card className="shadow-xl border-0">
             <CardHeader className="space-y-3 text-center pt-8 pb-6">
               <h2 className="text-2xl font-bold">
-                {isSignup ? "Create Account" : "Welcome Back"}
+                {isSignup ? "Fungura Konti" : "Murakaza neza"}
               </h2>
               <p className="text-muted-foreground">
-                {isSignup ? "Sign up to start your journey" : "Sign in to continue"}
+                {isSignup ? "Iyandike kugirango utangire urugendo rwawe" : "Injira kugirango ukomeze"}
               </p>
             </CardHeader>
 
@@ -383,7 +382,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                       <Input
                         id="firstName"
                         type="text"
-                        placeholder="First Name"
+                        placeholder="Izina ribanza"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required={isSignup}
@@ -395,7 +394,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                       <Input
                         id="lastName"
                         type="text"
-                        placeholder="Last Name"
+                        placeholder="Izina rya nyuma"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required={isSignup}
@@ -411,20 +410,20 @@ const getLoginErrorMessage = (errorCode: string) => {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="your.email@example.com"
+                      placeholder="email.yawe@example.com"
                       value={email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      required={!phone}
+                      required={!phone} // RESTORED: Required if phone is empty
                       disabled={isLoading}
                       data-testid="input-email"
                     />
                   </div>
                 )}
 
-                {/* "Or" separator - only show when both fields are visible */}
+                {/* "Cyangwa" separator - only show when both fields are visible */}
                 {showEmail && showPhone && (
                   <div className="text-center my-3 text-sm text-muted-foreground">
-                    or
+                    cyangwa
                   </div>
                 )}
 
@@ -440,13 +439,13 @@ const getLoginErrorMessage = (errorCode: string) => {
                     </div>
                     <Input
                       type="tel"
-                      placeholder="Phone number"
+                      placeholder="Numero ya telefoni"
                       value={phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       className="flex-1"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      required={!email}
+                      required={!email} // RESTORED: Required if email is empty
                       disabled={isLoading}
                     />
                   </div>
@@ -456,7 +455,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
+                    placeholder="Andika ijambobanga ryawe"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -479,7 +478,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                       <Input
                         id="confirmPassword"
                         type={showPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
+                        placeholder="Emeza ijambobanga ryawe"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required={isSignup}
@@ -489,7 +488,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                       />
                     </div>
                     <p className="text-xs text-muted-foreground px-2">
-                      Password must be at least 6 characters long
+                      Ijambobanga rigomba kuba ririmo nibura imibare 6
                     </p>
                   </>
                 )}
@@ -499,7 +498,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                     <div className="flex justify-between items-center gap-4">
                       <Link href="/forgot-password">
                         <Button type="button" variant="outline" className="flex-1" disabled={isLoading}>
-                          Forgot Password?
+                          Wibagiwe ijambobanga?
                         </Button>
                       </Link>
                       <Button 
@@ -511,10 +510,10 @@ const getLoginErrorMessage = (errorCode: string) => {
                         {isLoading ? (
                           <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            Signing In...
+                            Injira...
                           </>
                         ) : (
-                          "Sign In"
+                          "Injira"
                         )}
                       </Button>
                     </div>
@@ -530,10 +529,10 @@ const getLoginErrorMessage = (errorCode: string) => {
                       {isLoading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
-                          Creating Account...
+                          Ira Konti...
                         </>
                       ) : (
-                        "Sign Up"
+                        "Iyandike"
                       )}
                     </Button>
                   )}
@@ -541,7 +540,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                   {/* Toggle between Login and Signup */}
                   <div className="pt-4">
                     <p className="text-muted-foreground text-sm">
-                      {isSignup ? "Already have an account?" : "Don't have an account?"}
+                      {isSignup ? "Urafite konti?" : "Nta konti ufite?"}
                     </p>
                     <Button 
                       type="button" 
@@ -552,7 +551,7 @@ const getLoginErrorMessage = (errorCode: string) => {
                       data-testid="link-toggle-mode"
                     >
                       <UserPlus className="w-4 h-4 mr-2" />
-                      {isSignup ? "Sign In" : "Sign Up"}
+                      {isSignup ? "Injira" : "Iyandike"}
                     </Button>
                   </div>
                 </div>
@@ -573,7 +572,7 @@ const getLoginErrorMessage = (errorCode: string) => {
             <div className="p-4 flex-shrink-0">
               <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto mb-4" />
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-foreground">Select Country</h3>
+                <h3 className="text-lg font-semibold text-foreground">Hitamo Igihugu</h3>
                 <button onClick={() => { setShowCountryOverlay(false); setSearchQuery(""); }} className="p-1 rounded-full hover:bg-muted">
                   <X className="w-5 h-5" />
                 </button>
@@ -583,7 +582,7 @@ const getLoginErrorMessage = (errorCode: string) => {
               <div className="relative mb-4">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input 
-                  placeholder="Search country" 
+                  placeholder="Shaka igihugu" 
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
                   className="pl-9 bg-muted border-0" 
@@ -607,7 +606,7 @@ const getLoginErrorMessage = (errorCode: string) => {
               ))}
 
               {filteredCountries.length === 0 && (
-                <div className="p-4 text-center text-muted-foreground">No countries found</div>
+                <div className="p-4 text-center text-muted-foreground">Nta gihugu cyabonetse</div>
               )}
             </div>
           </div>

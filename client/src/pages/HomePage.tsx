@@ -588,6 +588,9 @@ const startExam = () => {
     setLocation("/login?mode=signup");
   };
 
+ // ... (keep all the imports and types above as they are)
+// ... (keep all the state and useEffect hooks above as they are)
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -598,126 +601,119 @@ const startExam = () => {
           <div className="px-2 py-2">
             
             <section className="mb-8">
-              <h2 className="text-black text-2xl font-bold mb-2 px-2"></h2>
+              <h2 className="text-gray-900 text-2xl font-bold mb-2 px-2"></h2>
 
-             {/* Week Days - Mobile Only - Updated to match Desktop */}
-<div className="mb-6 px-1">
-  {/* Title and progress indicator */}
-  <div className="flex items-center justify-between mb-3 px-1">
-    <div className="flex items-center gap-2">
-      <Calendar className="h-4 w-4 text-primary" />
-      <span className="text-xs font-medium text-gray-600">Daily Progress</span>
-    </div>
-    <span className="text-xs font-medium text-gray-500">
-      Icyumweru {Math.ceil((selectedDay + 1) / 7)} • {Math.round(((selectedDay + 1) / 7) * 100)}%
-    </span>
-  </div>
+              {/* Week Days - Mobile Only */}
+              <div className="mb-6 px-1">
+                <div className="flex items-center justify-between mb-3 px-1">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-medium text-gray-800">Daily Progress</span>
+                  </div>
+                  <span className="text-xs font-medium text-gray-700">
+                    Icyumweru {Math.ceil((selectedDay + 1) / 7)} • {Math.round(((selectedDay + 1) / 7) * 100)}%
+                  </span>
+                </div>
 
-  {/* Week navigation card - matches desktop styling */}
-  <div className="relative bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 backdrop-blur-sm rounded-xl shadow-sm border border-white/50 overflow-hidden">
-    <div className="p-3">
-      {/* Weekday buttons */}
-      <div className="grid grid-cols-7 gap-1">
-        {mobileWeekDays.map((day, index) => (
-          <button
-            key={day}
-            onClick={() => handleDaySelect(index)}
-            className={`
-              flex flex-col items-center justify-center gap-1 
-              py-2 rounded-lg transition-all duration-300
-              ${index === selectedDay && user
-                ? "bg-primary text-white shadow-lg shadow-primary/30 scale-105 ring-1 ring-primary/30"
-                : "bg-white/80 text-gray-700 hover:bg-white hover:shadow-md"
-              }
-              ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-white/80" : ""}
-              min-h-[4rem]
-            `}
-            disabled={!user}
-          >
-            {/* Icon */}
-            <div className={`
-              transition-transform duration-300
-              ${index === selectedDay && user
-                ? "text-white"
-                : "text-gray-500"
-              }
-            `}>
-              <svg
-                className="w-4 h-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M7 2v11h3v9l7-12h-4l4-8z" />
-              </svg>
-            </div>
+                <div className="relative bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 backdrop-blur-sm rounded-xl shadow-sm overflow-hidden">
+                  <div className="p-3">
+                    <div className="grid grid-cols-7 gap-1">
+                      {mobileWeekDays.map((day, index) => (
+                        <button
+                          key={day}
+                          onClick={() => handleDaySelect(index)}
+                          className={`
+                            flex flex-col items-center justify-center gap-1 
+                            py-2 rounded-lg transition-all duration-300
+                            ${index === selectedDay && user
+                              ? "bg-primary text-white shadow-lg shadow-primary/30 scale-105 ring-1 ring-primary/30"
+                              : "bg-white/90 text-gray-900 hover:bg-white hover:shadow-md"
+                            }
+                            ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-white/90" : ""}
+                            min-h-[4rem]
+                          `}
+                          disabled={!user}
+                        >
+                          <div className={`
+                            transition-transform duration-300
+                            ${index === selectedDay && user
+                              ? "text-white"
+                              : "text-gray-700"
+                            }
+                          `}>
+                            <svg
+                              className="w-4 h-4"
+                              fill="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M7 2v11h3v9l7-12h-4l4-8z" />
+                            </svg>
+                          </div>
 
-            {/* Day letter */}
-            <span className={`
-              text-xs font-semibold transition-colors
-              ${index === selectedDay && user
-                ? "text-white"
-                : "text-gray-800"
-              }
-            `}>
-              {day}
-            </span>
+                          <span className={`
+                            text-xs font-semibold transition-colors
+                            ${index === selectedDay && user
+                              ? "text-white"
+                              : "text-gray-900"
+                            }
+                          `}>
+                            {day}
+                          </span>
 
-            {/* Progress indicator dot */}
-            <div className={`
-              w-1.5 h-1.5 rounded-full transition-colors
-              ${index === selectedDay && user
-                ? "bg-white/80"
-                : index < selectedDay && user
-                ? "bg-green-400"
-                : "bg-gray-300"
-              }
-            `} />
-          </button>
-        ))}
-      </div>
+                          <div className={`
+                            w-1.5 h-1.5 rounded-full transition-colors
+                            ${index === selectedDay && user
+                              ? "bg-white/80"
+                              : index < selectedDay && user
+                              ? "bg-green-400"
+                              : "bg-gray-400"
+                            }
+                          `} />
+                        </button>
+                      ))}
+                    </div>
 
-      {/* Progress bar - matches desktop */}
-      <div className="mt-3 flex items-center gap-2">
-        <div className="flex-1 bg-white/50 rounded-full h-1.5 overflow-hidden">
-          <div
-            className="bg-primary h-full rounded-full transition-all duration-500 ease-out"
-            style={{ width: `${((selectedDay + 1) / 7) * 100}%` }}
-          />
-        </div>
-        <span className="text-[10px] font-medium text-gray-500 whitespace-nowrap">
-          {Math.round(((selectedDay + 1) / 7) * 100)}% complete
-        </span>
-      </div>
+                    <div className="mt-3 flex items-center gap-2">
+                      <div className="flex-1 bg-white/70 rounded-full h-1.5 overflow-hidden">
+                        <div
+                          className="bg-primary h-full rounded-full transition-all duration-500 ease-out"
+                          style={{ width: `${((selectedDay + 1) / 7) * 100}%` }}
+                        />
+                      </div>
+                      <span className="text-[10px] font-medium text-gray-700 whitespace-nowrap">
+                        {Math.round(((selectedDay + 1) / 7) * 100)}% complete
+                      </span>
+                    </div>
 
-      {/* Weekday full names (for better clarity) */}
-      <div className="mt-2 grid grid-cols-7 gap-1">
-        {weekDays.map((fullDay, index) => (
-          <div
-            key={fullDay}
-            className="text-center text-[10px] text-gray-500 font-medium truncate"
-          >
-            {fullDay}
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</div>
+                    <div className="mt-2 grid grid-cols-7 gap-1">
+                      {weekDays.map((fullDay, index) => (
+                        <div
+                          key={fullDay}
+                          className="text-center text-[10px] text-gray-700 font-medium truncate"
+                        >
+                          {fullDay}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Practice Card */}
               <Card className="mb-6 mx-2 bg-green-100">
                 <CardContent className="p-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Zap className="h-5 w-5 text-black" />
-                      <span className="text-xs font-semibold text-black-400">
+                      <Zap className="h-5 w-5 text-green-800" />
+                      <span className="text-xs font-semibold text-green-800">
                         Igerageza ry'uy'umunsi
                       </span>
                     </div>
-                    <h3 className="text-sm font-semibold leading-tight">
-                     kora amagerageza wiyungure ubumenyi
+                    <h3 className="text-sm font-semibold leading-tight text-gray-900">
+                      kora amagerageza wiyungure ubumenyi
                     </h3>
                     <Button
-                      className="w-full gap-2 bg-primary hover:bg-primary/90 h-10 text-sm"
+                      className="w-full gap-2 bg-green-600 hover:bg-green-700 h-10 text-sm text-white"
                       onClick={startRandomExam}
                     >
                       {practiceProgress > 0 && user
@@ -729,37 +725,37 @@ const startExam = () => {
                 </CardContent>
               </Card>
 
-
-              <div className="border-t border-border my-6 mx-2"></div>
+              <div className="border-t border-gray-300 my-6 mx-2"></div>
+              
               {/* New: Ikizamini cy'isuzuma Card - Mobile */}
-              <Card className="mb-4 mx-2 bg-green-100 text-black">
+              <Card className="mb-4 mx-2 bg-blue-100 text-gray-900">
                 <CardContent className="p-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Target className="h-5 w-5 text-green-500" />
-                      <span className="text-xs font-semibold">
+                      <Target className="h-5 w-5 text-blue-700" />
+                      <span className="text-xs font-semibold text-blue-800">
                         Ikizamini cy'isuzuma
                       </span>
                     </div>
                     {loadingExam ? (
                       <div className="space-y-2">
-                        <div className="h-4 bg-white/30 rounded animate-pulse"></div>
-                        <div className="h-3 bg-white/30 rounded animate-pulse w-3/4"></div>
+                        <div className="h-4 bg-blue-300 rounded animate-pulse"></div>
+                        <div className="h-3 bg-blue-300 rounded animate-pulse w-3/4"></div>
                       </div>
                     ) : randomExam ? (
                       <>
-                        <h3 className="text-sm font-semibold leading-tight">
+                        <h3 className="text-sm font-semibold leading-tight text-gray-900">
                           {randomExam.title}
                         </h3>
-                        <p className="text-xs opacity-90">
+                        <p className="text-xs text-gray-800 opacity-90">
                           {randomExam.description}
                         </p>
                         <div className="flex items-center justify-between text-xs pt-2">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 text-gray-800">
                             <BookOpen className="h-3 w-3" />
                             <span>{randomExam.questionCount} Questions</span>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 text-gray-800">
                             <Clock className="h-3 w-3" />
                             <span>{randomExam.duration} min</span>
                           </div>
@@ -768,7 +764,7 @@ const startExam = () => {
                     ) : null}
                     
                     <Button
-                      className="w-full gap-2 bg-green-500 hover:bg-green-800 text-white h-10 text-sm font-semibold mt-3"
+                      className="w-full gap-2 bg-blue-600 hover:bg-blue-700 text-white h-10 text-sm font-semibold mt-3"
                       onClick={startExam}
                       disabled={loadingExam}
                     >
@@ -789,7 +785,7 @@ const startExam = () => {
               
               {/* Jump Back In Section */}
               <div className="mb-6 px-2">
-                <h3 className="text-lg font-semibold mb-3">Komeza Kwiga</h3>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">Komeza Kwiga</h3>
 
                 <div className="space-y-3 mb-4">
                   {loadingModules ? (
@@ -798,16 +794,16 @@ const startExam = () => {
                         <CardContent className="p-3">
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
-                              <div className="h-4 bg-gray-300 rounded animate-pulse w-3/4 mb-1"></div>
-                              <div className="h-3 bg-gray-300 rounded animate-pulse w-1/2 mb-1"></div>
-                              <div className="h-3 bg-gray-300 rounded animate-pulse w-1/3"></div>
+                              <div className="h-4 bg-gray-400 rounded animate-pulse w-3/4 mb-1"></div>
+                              <div className="h-3 bg-gray-400 rounded animate-pulse w-1/2 mb-1"></div>
+                              <div className="h-3 bg-gray-400 rounded animate-pulse w-1/3"></div>
                             </div>
-                            <div className="h-7 w-7 bg-gray-300 rounded-full animate-pulse"></div>
+                            <div className="h-7 w-7 bg-gray-400 rounded-full animate-pulse"></div>
                           </div>
-                          <div className="h-1 bg-gray-300 rounded animate-pulse mb-1"></div>
+                          <div className="h-1 bg-gray-400 rounded animate-pulse mb-1"></div>
                           <div className="flex justify-between items-center text-xs">
-                            <div className="h-3 bg-gray-300 rounded animate-pulse w-16"></div>
-                            <div className="h-3 bg-gray-300 rounded animate-pulse w-20"></div>
+                            <div className="h-3 bg-gray-400 rounded animate-pulse w-16"></div>
+                            <div className="h-3 bg-gray-400 rounded animate-pulse w-20"></div>
                           </div>
                         </CardContent>
                       </Card>
@@ -822,13 +818,13 @@ const startExam = () => {
                         <CardContent className="p-3">
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
-                              <h4 className="font-semibold text-sm mb-1">
+                              <h4 className="font-semibold text-sm mb-1 text-gray-900">
                                 {module.title}
                               </h4>
-                              <p className="text-xs text-muted-foreground mb-1">
+                              <p className="text-xs text-gray-700 mb-1">
                                 {module.level}
                               </p>
-                              <p className="text-sm font-medium">
+                              <p className="text-sm font-medium text-gray-900">
                                 {module.progress}
                               </p>
                             </div>
@@ -844,10 +840,10 @@ const startExam = () => {
                               <Play className="h-3 w-3" />
                             </Button>
                           </div>
-                          <Progress value={module.progressValue} className="h-1 mb-1" />
-                          <div className="flex justify-between items-center text-xs text-muted-foreground">
+                          <Progress value={module.progressValue} className="h-1 mb-1 bg-gray-300" />
+                          <div className="flex justify-between items-center text-xs text-gray-700">
                             <span>{module.progressValue}% complete</span>
-                            <span>{user ? "Continue" : "Login to Start"}</span>
+                            <span className="font-medium">{user ? "Continue" : "Login to Start"}</span>
                           </div>
                         </CardContent>
                       </Card>
@@ -857,7 +853,7 @@ const startExam = () => {
 
                 <Button
                   variant="outline"
-                  className="w-full gap-2 h-10 text-sm"
+                  className="w-full gap-2 h-10 text-sm text-gray-900"
                   onClick={viewAllLessons}
                 >
                   Amasomo yose
@@ -872,12 +868,12 @@ const startExam = () => {
                       <CardContent className="p-3">
                         <div className="flex gap-3">
                           <div className="flex-shrink-0">
-                            <div className="w-16 h-16 bg-gray-300 rounded-lg animate-pulse"></div>
+                            <div className="w-16 h-16 bg-gray-400 rounded-lg animate-pulse"></div>
                           </div>
                           <div className="flex-1 space-y-2">
-                            <div className="h-4 bg-gray-300 rounded animate-pulse w-3/4"></div>
-                            <div className="h-3 bg-gray-300 rounded animate-pulse w-1/2"></div>
-                            <div className="h-3 bg-gray-300 rounded animate-pulse w-full"></div>
+                            <div className="h-4 bg-gray-400 rounded animate-pulse w-3/4"></div>
+                            <div className="h-3 bg-gray-400 rounded animate-pulse w-1/2"></div>
+                            <div className="h-3 bg-gray-400 rounded animate-pulse w-full"></div>
                           </div>
                         </div>
                       </CardContent>
@@ -903,20 +899,20 @@ const startExam = () => {
                           </div>
 
                           <div className="flex-1 space-y-2">
-                            <h4 className="font-semibold text-sm">
+                            <h4 className="font-semibold text-sm text-gray-900">
                               {module.title}
                             </h4>
-                            <p className="text-xs text-muted-foreground leading-relaxed">
+                            <p className="text-xs text-gray-700 leading-relaxed">
                               {module.description}
                             </p>
                             <div className="flex justify-between items-center text-xs">
-                              <span className="text-muted-foreground">
+                              <span className="text-gray-700">
                                 {module.lessonsCount} sections
                               </span>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-6 px-2 text-xs gap-1"
+                                className="h-6 px-2 text-xs gap-1 text-gray-900"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   continueModule(module.id);
@@ -944,17 +940,18 @@ const startExam = () => {
               <div className="lg:col-span-2 space-y-12">
                 <section>
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-3xl font-bold bg-green-500 bg-clip-text text-transparent">
+                    <h2 className="text-3xl font-bold text-gray-900">
                      Ahabanza
                     </h2>
                     
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-gray-700">
                       <Clock className="h-4 w-4" />
                       <span>Ibyagezweho uyu munsi</span>
                     </div>
                   </div>
+                  
                   {/* Week Navigation */}
-                  <Card className="mb-2 border-0 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 backdrop-blur-sm shadow-sm">
+                  <Card className="mb-2 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 shadow-sm">
                     <CardContent className="p-6">
                       <div className="flex gap-3">
                         {weekDays.map((day, index) => (
@@ -963,16 +960,16 @@ const startExam = () => {
                             onClick={() => handleDaySelect(index)}
                             className={`flex-1 flex flex-col items-center gap-2 py-1 rounded-xl transition-all duration-300 group ${
                               index === selectedDay && user
-                                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105 ring-2 ring-primary/20"
-                                : "bg-white/60 text-muted-foreground hover:bg-white hover:shadow-md hover:scale-102 border border-white/50"
-                            } ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-white/60" : ""}`}
+                                ? "bg-primary text-white shadow-lg shadow-primary/30 scale-105 ring-2 ring-primary/20"
+                                : "bg-white/90 text-gray-900 hover:bg-white hover:shadow-md hover:scale-102"
+                            } ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-white/90" : ""}`}
                             disabled={!user}
                           >
                             <div
                               className={`transition-transform duration-300 group-hover:scale-110 ${
                                 index === selectedDay && user
-                                  ? "text-primary-foreground"
-                                  : "text-muted-foreground/70 group-hover:text-primary/80"
+                                  ? "text-white"
+                                  : "text-gray-700 group-hover:text-primary/80"
                               }`}
                             >
                               <svg
@@ -987,8 +984,8 @@ const startExam = () => {
                             <span
                               className={`text-sm font-semibold transition-colors ${
                                 index === selectedDay && user
-                                  ? "text-primary-foreground"
-                                  : "text-foreground/80 group-hover:text-foreground"
+                                  ? "text-white"
+                                  : "text-gray-900 group-hover:text-gray-900"
                               }`}
                             >
                               {day}
@@ -997,10 +994,10 @@ const startExam = () => {
                             <div
                               className={`w-1.5 h-1.5 rounded-full transition-colors ${
                                 index === selectedDay && user
-                                  ? "bg-primary-foreground/60"
+                                  ? "bg-white/80"
                                   : index < selectedDay && user
-                                  ? "bg-green-400"
-                                  : "bg-muted-foreground/30 group-hover:bg-muted-foreground/50"
+                                  ? "bg-green-500"
+                                  : "bg-gray-400 group-hover:bg-gray-500"
                               }`}
                             />
                           </button>
@@ -1008,13 +1005,13 @@ const startExam = () => {
                       </div>
 
                       <div className="mt-4 flex items-center gap-3">
-                        <div className="flex-1 bg-white/50 rounded-full h-2 overflow-hidden">
+                        <div className="flex-1 bg-white/70 rounded-full h-2 overflow-hidden">
                           <div
                             className="bg-primary h-full rounded-full transition-all duration-500 ease-out"
                             style={{ width: `${((selectedDay + 1) / 7) * 100}%` }}
                           />
                         </div>
-                        <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">
+                        <span className="text-xs font-medium text-gray-700 whitespace-nowrap">
                           Icyumweru {Math.ceil((selectedDay + 1) / 7)} •{" "}
                           {Math.round(((selectedDay + 1) / 7) * 100)}%
                         </span>
@@ -1023,26 +1020,26 @@ const startExam = () => {
                   </Card>
                 
                   {/* Quick Practice Card */}
-                  <Card className="bg-green-100 text-black mb-4">
+                  <Card className="bg-green-100 text-gray-900 mb-4">
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-4">
                           <div className="flex items-center gap-2">
-                            <Zap className="h-5 w-5 text-black" />
-                            <span className="text-xs font-semibold text-black-400">
+                            <Zap className="h-5 w-5 text-green-800" />
+                            <span className="text-xs font-semibold text-green-800">
                               Igerageza ry'uy'umunsi
                             </span>
                           </div>
-                          <h3 className="text-xs text-black font-bold leading-tight">
+                          <h3 className="text-xs font-bold leading-tight text-gray-900">
                             Kora amagerageza wiyungure ubumenyi
                           </h3>
                         </div>
-                        <div className="bg-white/10 p-3 rounded-2xl backdrop-blur-sm">
-                          <Star className="h-6 w-6 text-yellow-400" />
+                        <div className="bg-white/80 p-3 rounded-2xl">
+                          <Star className="h-6 w-6 text-yellow-500" />
                         </div>
                       </div>
                       <Button
-                        className="w-full mt-2 bg-primary text-slate-900 hover:bg-primary/90 h-4 text-sm font-semibold shadow-lg shadow-white/20"
+                        className="w-full mt-2 bg-green-600 text-white hover:bg-green-700 h-10 text-sm font-semibold shadow-lg"
                         onClick={startRandomExam}
                         disabled={practiceProgress > 0 && practiceProgress < 100 && user}
                       >
@@ -1057,39 +1054,34 @@ const startExam = () => {
                         ) : (
                           <>
                             <Play className="h-5 w-5 mr-2" />
-                            {user ? "Start Practice Session" : "Login to Practice"}
+                            {user ? "Tangira Isuzuma" : "Injira Wisuzume"}
                           </>
                         )}
                       </Button>
                     </CardContent>
                   </Card>
 
-
-                </section>
-  {/* New: Ikizamini cy'isuzuma Card - Desktop */}
-                  <Card className="mb-4 bg-blue-100 text-black shadow-lg shadow-purple-500/25">
+                  {/* New: Ikizamini cy'isuzuma Card - Desktop */}
+                  <Card className="mb-4 bg-blue-100 text-gray-900 shadow-lg">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="space-y-4">
                           <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-xl bg-white/20 backdrop-blur-sm">
-                              <Target className="h-5 w-5 text-green-500" />
+                            <div className="p-2 rounded-xl bg-white/80">
+                              <Target className="h-5 w-5 text-blue-700" />
                             </div>
                             <div>
-                              <span className="text-sm font-semibold tracking-wide">
-                                Ikizamini cy'isuzuma
-                              </span>
                               {loadingExam ? (
                                 <div className="space-y-2 mt-2">
-                                  <div className="h-5 bg-white/30 rounded animate-pulse w-48"></div>
-                                  <div className="h-4 bg-white/30 rounded animate-pulse w-64"></div>
+                                  <div className="h-5 bg-blue-300 rounded animate-pulse w-48"></div>
+                                  <div className="h-4 bg-blue-300 rounded animate-pulse w-64"></div>
                                 </div>
                               ) : randomExam ? (
                                 <>
-                                  <h3 className="text-xl font-bold mt-1">
+                                  <h3 className="text-xl font-bold mt-1 text-gray-900">
                                     {randomExam.title}
                                   </h3>
-                                  <p className="text-sm opacity-90 max-w-xl">
+                                  <p className="text-sm text-gray-800 max-w-xl">
                                     {randomExam.description}
                                   </p>
                                 </>
@@ -1098,18 +1090,14 @@ const startExam = () => {
                           </div>
                           
                           {randomExam && (
-                            <div className="flex items-center gap-6 text-sm">
-                              <div className="flex items-center gap-2">
-                                <BookOpen className="h-4 w-4 opacity-80" />
-                                <span>{randomExam.questionCount} Questions</span>
+                            <div className="flex items-center gap-6 text-sm justify-between">
+                              <div className="flex items-center gap-2 text-gray-800">
+                                <BookOpen className="h-4 w-4" />
+                                <span>Ibibazo {randomExam.questionCount}</span>
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Clock className="h-4 w-4 opacity-80" />
-                                <span>{randomExam.duration} Minutes</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <TrendingUp className="h-4 w-4 opacity-80" />
-                                <span>{randomExam.difficulty}</span>
+                              <div className="flex items-center gap-2 text-gray-800">
+                                <Clock className="h-4 w-4" />
+                                <span>iminota {randomExam.duration}</span>
                               </div>
                             </div>
                           )}
@@ -1117,19 +1105,18 @@ const startExam = () => {
                       </div>
                       
                       <Button
-                        className="w-full mt-6 h-12 text-sm font-semibold bg-green-500 hover:bg-green-300 text-black"
+                        className="w-full mt-6 h-12 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white"
                         onClick={startExam}
                         disabled={loadingExam}
                       >
                         {loadingExam ? (
                           <div className="flex items-center gap-2">
-                            <div className="h-4 w-4 text-black rounded-full animate-spin"></div>
+                            <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                             Loading Exam...
                           </div>
                         ) : user ? (
-                          <>
+                          <> <Play className="h-4 w-4 ml-2" />
                             Tangira ikizamini
-                            <Play className="h-4 w-4 ml-2" />
                           </>
                         ) : (
                           "Injira ubone kwisuzuma"
@@ -1137,16 +1124,17 @@ const startExam = () => {
                       </Button>
                     </CardContent>
                   </Card>
+                </section>
 
                 {/* Continue Learning */}
                 <section>
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                    <h2 className="text-3xl font-bold text-gray-900">
                       Komeza Kwiga
                     </h2>
                     <Button
                       variant="ghost"
-                      className="gap-2 text-muted-foreground"
+                      className="gap-2 text-gray-700 hover:text-gray-900"
                       onClick={viewAllLessons}
                     >
                       Reba byose
@@ -1157,25 +1145,25 @@ const startExam = () => {
                   {loadingModules ? (
                     <div className="space-y-4">
                       {[1, 2, 3].map((i) => (
-                        <Card key={i} className="border-0 bg-white/70 backdrop-blur-sm">
+                        <Card key={i} className="bg-white">
                           <CardContent className="p-6">
                             <div className="animate-pulse">
                               <div className="flex items-start justify-between mb-4">
                                 <div className="space-y-3 flex-1">
                                   <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gray-300 rounded-xl"></div>
+                                    <div className="w-10 h-10 bg-gray-400 rounded-xl"></div>
                                     <div className="space-y-2">
-                                      <div className="h-4 bg-gray-300 rounded w-32"></div>
-                                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                                      <div className="h-4 bg-gray-400 rounded w-32"></div>
+                                      <div className="h-3 bg-gray-400 rounded w-20"></div>
                                     </div>
                                   </div>
-                                  <div className="h-3 bg-gray-300 rounded w-3/4"></div>
+                                  <div className="h-3 bg-gray-400 rounded w-3/4"></div>
                                 </div>
-                                <div className="w-9 h-9 bg-gray-300 rounded-full"></div>
+                                <div className="w-9 h-9 bg-gray-400 rounded-full"></div>
                               </div>
                               <div className="space-y-3">
-                                <div className="h-2 bg-gray-300 rounded w-full"></div>
-                                <div className="h-2 bg-gray-300 rounded w-2/3"></div>
+                                <div className="h-2 bg-gray-400 rounded w-full"></div>
+                                <div className="h-2 bg-gray-400 rounded w-2/3"></div>
                               </div>
                             </div>
                           </CardContent>
@@ -1189,7 +1177,7 @@ const startExam = () => {
                         return (
                           <Card
                             key={module.id}
-                            className="group hover:shadow-xl transition-all duration-300 border-0 bg-green-100 backdrop-blur-sm overflow-hidden cursor-pointer"
+                            className="group hover:shadow-xl transition-all duration-300 bg-white cursor-pointer"
                             onClick={() => continueModule(module.id)}
                           >
                             <CardContent className="p-0">
@@ -1203,21 +1191,21 @@ const startExam = () => {
                                         <Icon className="h-5 w-5 text-white" />
                                       </div>
                                       <div>
-                                        <h3 className="font-semibold text-foreground">
+                                        <h3 className="font-semibold text-gray-900">
                                           {module.title}
                                         </h3>
-                                        <p className="text-xs text-muted-foreground">
+                                        <p className="text-xs text-gray-700">
                                           {module.level}
                                         </p>
                                       </div>
                                     </div>
-                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                    <p className="text-sm text-gray-700 leading-relaxed">
                                       {module.description}
                                     </p>
                                   </div>
                                   <Button
                                     size="sm"
-                                    className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
+                                    className="bg-primary hover:bg-primary/90 text-white shadow-lg"
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       continueModule(module.id);
@@ -1229,20 +1217,20 @@ const startExam = () => {
 
                                 <div className="space-y-3">
                                   <div className="flex justify-between items-center text-sm">
-                                    <span className="font-medium text-foreground">
+                                    <span className="font-medium text-gray-900">
                                       {module.progress}
                                     </span>
-                                    <span className="text-muted-foreground">
+                                    <span className="text-gray-700">
                                       {module.progressValue}%
                                     </span>
                                   </div>
                                   <Progress
                                     value={module.progressValue}
-                                    className="h-2 bg-slate-200"
+                                    className="h-2 bg-gray-300"
                                   />
-                                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                                  <div className="flex justify-between items-center text-xs text-gray-700">
                                     <span>{module.lessonsCount} sections</span>
-                                    <span>{user ? "Continue learning" : "Login to start"}</span>
+                                    <span className="font-medium">{user ? "Continue learning" : "Login to start"}</span>
                                   </div>
                                 </div>
                               </div>
@@ -1256,19 +1244,19 @@ const startExam = () => {
 
                 {/* Learning Paths */}
                 <section>
-                  <h2 className="text-3xl w-full font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                  <h2 className="text-3xl w-full font-bold mb-6 text-gray-900">
                     Amasomo
                   </h2>
                   {loadingModules ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {[1, 2, 3].map((i) => (
-                        <Card key={i} className="border-0 bg-green-100 backdrop-blur-sm h-full">
+                        <Card key={i} className="bg-white h-full">
                           <CardContent className="p-0 h-full">
-                            <div className="h-32 bg-gray-300 animate-pulse"></div>
+                            <div className="h-32 bg-gray-400 animate-pulse"></div>
                             <div className="p-4 space-y-3">
-                              <div className="h-4 bg-gray-300 rounded animate-pulse"></div>
-                              <div className="h-3 bg-gray-300 rounded animate-pulse w-3/4"></div>
-                              <div className="h-9 bg-gray-300 rounded animate-pulse mt-4"></div>
+                              <div className="h-4 bg-gray-400 rounded animate-pulse"></div>
+                              <div className="h-3 bg-gray-400 rounded animate-pulse w-3/4"></div>
+                              <div className="h-9 bg-gray-400 rounded animate-pulse mt-4"></div>
                             </div>
                           </CardContent>
                         </Card>
@@ -1283,7 +1271,7 @@ const startExam = () => {
                         return (
                           <Card
                             key={chapter.id}
-                            className="group hover:shadow-xl transition-all duration-300 border-0 bg-white backdrop-blur-sm overflow-hidden cursor-pointer h-full flex flex-col"
+                            className="group hover:shadow-xl transition-all duration-300 bg-white overflow-hidden cursor-pointer h-full flex flex-col"
                             onClick={() => continueModule(chapter.id)}
                           >
                             <CardContent className="p-0 flex flex-col h-full">
@@ -1294,25 +1282,25 @@ const startExam = () => {
                                   className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 bg-black/20"></div>
-                                <div className="absolute top-3 left-3 p-2 rounded-xl bg-white/20 backdrop-blur-sm">
-                                  <Icon className="h-4 w-4 text-white" />
+                                <div className="absolute top-3 left-3 p-2 rounded-xl bg-white/80 backdrop-blur-sm">
+                                  <Icon className="h-4 w-4 text-gray-900" />
                                 </div>
-                                <div className="absolute top-3 right-3 px-2 py-1 rounded-lg bg-primary text-primary-foreground text-xs font-medium">
+                                <div className="absolute top-3 right-3 px-2 py-1 rounded-lg bg-primary text-white text-xs font-medium">
                                   Chapter {chapter.chapterNumber}
                                 </div>
                               </div>
 
                               <div className="p-4 flex-1 flex flex-col">
                                 <div className="flex-1 space-y-2 mb-4">
-                                  <h3 className="font-semibold text-foreground text-base leading-tight line-clamp-2">
+                                  <h3 className="font-semibold text-gray-900 text-base leading-tight line-clamp-2">
                                     {chapter.title}
                                   </h3>
-                                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                                    Tangira kwiga isomo  {chapter.title}
+                                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-2">
+                                    Tangira kwiga isomo {chapter.title}
                                   </p>
                                 </div>
                                 <Button
-                                  className="w-full bg-primary hover:bg-primary/90 h-9 text-sm font-semibold"
+                                  className="w-full bg-primary hover:bg-primary/90 h-9 text-sm font-semibold text-white"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     continueModule(chapter.id);
@@ -1335,17 +1323,17 @@ const startExam = () => {
               <div className="space-y-12">
                 {/* Study Calendar */}
                 <section>
-                  <Card className="border-0 bg-white/70 backdrop-blur-sm shadow-lg">
+                  <Card className="bg-white shadow-lg">
                     <CardContent className="p-6">
                       <div className="flex items-center gap-3 mb-6">
                         <div className="p-2 rounded-xl bg-primary/10">
                           <Calendar className="h-5 w-5 text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-foreground">
+                          <h3 className="font-semibold text-gray-900">
                             Kalendari
                           </h3>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-gray-700">
                             Genzura uko wize
                           </p>
                         </div>
@@ -1355,18 +1343,18 @@ const startExam = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-8 w-8 p-0 hover:bg-slate-100"
+                          className="h-8 w-8 p-0 hover:bg-gray-100 text-gray-700"
                           onClick={handlePrevMonth}
                         >
                           <ChevronLeft className="h-4 w-4" />
                         </Button>
-                        <span className="text-sm font-semibold text-foreground">
+                        <span className="text-sm font-semibold text-gray-900">
                           {getMonthName(currentMonth)} {currentYear}
                         </span>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-8 w-8 p-0 hover:bg-slate-100"
+                          className="h-8 w-8 p-0 hover:bg-gray-100 text-gray-700"
                           onClick={handleNextMonth}
                         >
                           <ChevronRight className="h-4 w-4" />
@@ -1378,7 +1366,7 @@ const startExam = () => {
                           (day) => (
                             <div
                               key={day}
-                              className="text-center text-xs font-semibold text-muted-foreground py-2"
+                              className="text-center text-xs font-semibold text-gray-700 py-2"
                             >
                               {day.charAt(0)}
                             </div>
@@ -1395,13 +1383,13 @@ const startExam = () => {
                               day === new Date().getDate() &&
                               currentMonth === new Date().getMonth() &&
                               currentYear === new Date().getFullYear()
-                                ? "bg-blue-500 text-primary-foreground shadow-lg shadow-primary/25 scale-105"
+                                ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105"
                                 : day &&
                                   day <= new Date().getDate() &&
                                   currentMonth === new Date().getMonth() &&
                                   currentYear === new Date().getFullYear()
-                                ? "bg-green-500 text-white shadow-md shadow-green-500/25"
-                                : "text-foreground hover:bg-slate-100 hover:scale-105"
+                                ? "bg-green-600 text-white shadow-md shadow-green-500/25"
+                                : "text-gray-900 hover:bg-gray-100 hover:scale-105"
                             } ${!day ? "invisible" : ""} ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-transparent" : ""}`}
                             disabled={!user}
                           >
@@ -1410,16 +1398,16 @@ const startExam = () => {
                         ))}
                       </div>
 
-                      <div className="mt-6 space-y-3 pt-4 border-t border-slate-200">
+                      <div className="mt-6 space-y-3 pt-4 border-t border-gray-300">
                         <div className="flex items-center gap-3 text-xs">
-                          <div className="w-3 h-3 bg-green-500 rounded-full shadow-sm"></div>
-                          <span className="text-muted-foreground">
+                          <div className="w-3 h-3 bg-green-600 rounded-full shadow-sm"></div>
+                          <span className="text-gray-700">
                             Izarangiye
                           </span>
                         </div>
                         <div className="flex items-center gap-3 text-xs">
-                          <div className="w-3 h-3 bg-blue-500 rounded-full shadow-sm"></div>
-                          <span className="text-muted-foreground">
+                          <div className="w-3 h-3 bg-blue-600 rounded-full shadow-sm"></div>
+                          <span className="text-gray-700">
                             Isomo ry'uy'umunsi
                           </span>
                         </div>
@@ -1430,31 +1418,31 @@ const startExam = () => {
 
                 {/* Weekly Progress */}
                 <section>
-                  <Card className="border-0 bg-white text-black shadow-2xl shadow-indigo-500/25">
+                  <Card className="bg-blue-50 text-gray-900 shadow-lg">
                     <CardContent className="p-6">
-                      <h3 className="font-semibold mb-4">Weekly Progress</h3>
+                      <h3 className="font-semibold mb-4 text-gray-900">Weekly Progress</h3>
                       {user ? (
                         <>
                           <div className="space-y-4">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm opacity-90">
+                              <span className="text-sm text-gray-700">
                                 Icyo cyo kwiga
                               </span>
-                              <span className="text-sm font-semibold">
+                              <span className="text-sm font-semibold text-gray-900">
                                 {Math.floor(userProgress.learningTime / 60)}h{" "}
                                 {userProgress.learningTime % 60}m
                               </span>
                             </div>
                             <Progress
                               value={(userProgress.learningTime / (10 * 60)) * 100}
-                              className="h-2 bg-white/20"
+                              className="h-2 bg-blue-200"
                             />
 
                             <div className="flex justify-between items-center">
-                              <span className="text-sm opacity-90">
+                              <span className="text-sm text-gray-700">
                                 Amasomo warangije
                               </span>
-                              <span className="text-sm font-semibold">
+                              <span className="text-sm font-semibold text-gray-900">
                                 {userProgress.lessonsCompleted}/
                                 {userProgress.totalLessons}
                               </span>
@@ -1465,26 +1453,26 @@ const startExam = () => {
                                   userProgress.totalLessons) *
                                 100
                               }
-                              className="h-2 bg-white/20"
+                              className="h-2 bg-blue-200"
                             />
 
                             <div className="flex justify-between items-center">
-                              <span className="text-sm opacity-90">
+                              <span className="text-sm text-gray-700">
                                 Practice Tests
                               </span>
-                              <span className="text-sm font-semibold">
+                              <span className="text-sm font-semibold text-gray-900">
                                 {userProgress.practiceTests}% Avg.
                               </span>
                             </div>
                             <Progress
                               value={userProgress.practiceTests}
-                              className="h-2 bg-white/20"
+                              className="h-2 bg-blue-200"
                             />
                           </div>
 
                           <Button
-                            variant="secondary"
-                            className="w-full mt-6 bg-white/20 hover:bg-white/30 text-white border-0 h-10"
+                            variant="outline"
+                            className="w-full mt-6 bg-blue-100 hover:bg-blue-200 text-gray-900 h-10"
                             onClick={viewDetailedAnalytics}
                           >
                             Reba byose
@@ -1492,12 +1480,12 @@ const startExam = () => {
                         </>
                       ) : (
                         <div className="text-center py-8">
-                          <Users className="h-12 w-12 text-white/50 mx-auto mb-4" />
-                          <p className="text-white/70 mb-4">
+                          <Users className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                          <p className="text-gray-700 mb-4">
                             Injira utangire gukora amasuzuma
                           </p>
                           <Button
-                            className="bg-white/20 hover:bg-white/30 text-white"
+                            className="bg-blue-600 hover:bg-blue-700 text-white"
                             onClick={handleLoginRedirect}
                           >
                             Injira ukurikirane uko wiga
@@ -1513,41 +1501,41 @@ const startExam = () => {
         </div>
       </div>
           
-    {/* Upgrade Modal */}
-    {showUpgradeModal && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div
-          onClick={() => setShowUpgradeModal(false)}
-          className="absolute inset-0 bg-black/40 backdrop-blur-xs"
-        />
-        <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md mx-4 p-6 animate-in fade-in zoom-in">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-3">
-            Ntago Wemerewe
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-center text-sm mb-6">
-            {upgradeMessage}
-          </p>
-          <div className="flex gap-4">
-            <Button
-              variant="outline"
-              onClick={() => setShowUpgradeModal(false)}
-              className="flex-1 rounded-xl"
-            >
-              Gufunga
-            </Button>
-            <Button
-              onClick={() => {
-                setShowUpgradeModal(false);
-                setLocation("/subscribe");
-              }}
-              className="flex-1 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold shadow-md"
-            >
-              Gura Classic
-            </Button>
+      {/* Upgrade Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            onClick={() => setShowUpgradeModal(false)}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          />
+          <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6 animate-in fade-in zoom-in">
+            <h3 className="text-xl font-bold text-gray-900 text-center mb-3">
+              Ntago Wemerewe
+            </h3>
+            <p className="text-gray-800 text-center text-sm mb-6">
+              {upgradeMessage}
+            </p>
+            <div className="flex gap-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowUpgradeModal(false)}
+                className="flex-1 rounded-xl text-gray-700"
+              >
+                Gufunga
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowUpgradeModal(false);
+                  setLocation("/subscribe");
+                }}
+                className="flex-1 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold shadow-md"
+              >
+                Gura Classic
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
     </div>
   );
 }
