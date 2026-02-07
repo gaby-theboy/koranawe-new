@@ -344,7 +344,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
   const initializeWebSocket = (userId: string) => {
     resetPaymentStates();
     
-    const API_KEY = "RXZu3g.hWflFw:ZOPOOo4Kny-ljsiaSGJBvm83dvFb2eeJA44CnI9fwAM";
+        const API_KEY = "zqhSEQ.i8sg_g:a0GCvG7NcM_7S_lEEQqkfK7OmLVAz_HXWmZLh7DxP5k";
     const wsUrl = `wss://realtime.ably.io/?key=${API_KEY}&v=1.2&format=json&heartbeats=true&echo=false`;
 
     try {
