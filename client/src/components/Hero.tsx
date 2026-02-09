@@ -23,7 +23,7 @@ export default function Hero() {
             transition={{ duration: 0.7 }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4 leading-tight">
-              Kora <span className="text-green-500">Rimwe Gusa</span> Utsinde 
+              KoraNawe <span className="text-green-500">Rimwe Gusa</span> Utsinde 
             </h1>
             <p className="text-base md:text-lg text-black/80 mb-6 leading-relaxed">
               Pass your driving test with confidence. Interactive lessons, image-based quizzes, and realistic mock exams.

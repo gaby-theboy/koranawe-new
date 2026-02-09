@@ -354,7 +354,7 @@ export default function LoginPage() {
               <span className="text-primary-foreground font-bold text-xl">K</span>
             </div>
             <h2 className="text-2xl font-bold text-foreground">
-             Kora
+             KoraNawe
             </h2>
           </div>
 

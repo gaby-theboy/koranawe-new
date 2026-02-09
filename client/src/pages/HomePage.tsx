@@ -936,8 +936,9 @@ const startExam = () => {
         {/* Desktop Layout */}
         <div className="hidden md:block">
           <div className="py-6">
-            <div className="grid lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2 space-y-12">
+            <div className="flex gap-8">
+              {/* Left Content Area - Scrollable */}
+              <div className="flex-1 min-w-0 space-y-12 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 80px)' }}>
                 <section>
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-3xl font-bold text-gray-900">
@@ -1090,22 +1091,15 @@ const startExam = () => {
                           </div>
                           
                           {randomExam && (
-                            <div className="flex items-center gap-6 text-sm justify-between">
-                              <div className="flex items-center gap-2 text-gray-800">
-                                <BookOpen className="h-4 w-4" />
-                                <span>Ibibazo {randomExam.questionCount}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-gray-800">
-                                <Clock className="h-4 w-4" />
-                                <span>iminota {randomExam.duration}</span>
-                              </div>
+                            <div className="">
+
                             </div>
                           )}
                         </div>
                       </div>
                       
                       <Button
-                        className="w-full mt-6 h-12 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white"
+                        className="w-full mt-0 h-12 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white"
                         onClick={startExam}
                         disabled={loadingExam}
                       >
@@ -1261,7 +1255,7 @@ const startExam = () => {
                           </CardContent>
                         </Card>
                       ))}
-                    </div>
+                  </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {chapters.slice(0, 3).map((chapter, index) => {
@@ -1319,182 +1313,186 @@ const startExam = () => {
                 </section>
               </div>
 
-              {/* Right Column - Calendar & Progress */}
-              <div className="space-y-12">
-                {/* Study Calendar */}
-                <section>
-                  <Card className="bg-white shadow-lg">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="p-2 rounded-xl bg-primary/10">
-                          <Calendar className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">
-                            Kalendari
-                          </h3>
-                          <p className="text-sm text-gray-700">
-                            Genzura uko wize
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between mb-4">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 w-8 p-0 hover:bg-gray-100 text-gray-700"
-                          onClick={handlePrevMonth}
-                        >
-                          <ChevronLeft className="h-4 w-4" />
-                        </Button>
-                        <span className="text-sm font-semibold text-gray-900">
-                          {getMonthName(currentMonth)} {currentYear}
-                        </span>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 w-8 p-0 hover:bg-gray-100 text-gray-700"
-                          onClick={handleNextMonth}
-                        >
-                          <ChevronRight className="h-4 w-4" />
-                        </Button>
-                      </div>
-
-                      <div className="grid grid-cols-7 gap-1 mb-3">
-                        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
-                          (day) => (
-                            <div
-                              key={day}
-                              className="text-center text-xs font-semibold text-gray-700 py-2"
-                            >
-                              {day.charAt(0)}
-                            </div>
-                          )
-                        )}
-                      </div>
-
-                      <div className="grid grid-cols-7 gap-1">
-                        {generateCalendarDays().map((day, index) => (
-                          <button
-                            key={index}
-                            onClick={() => day && handleCalendarDayClick(day)}
-                            className={`h-8 rounded-lg text-xs font-medium transition-all ${
-                              day === new Date().getDate() &&
-                              currentMonth === new Date().getMonth() &&
-                              currentYear === new Date().getFullYear()
-                                ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105"
-                                : day &&
-                                  day <= new Date().getDate() &&
-                                  currentMonth === new Date().getMonth() &&
-                                  currentYear === new Date().getFullYear()
-                                ? "bg-green-600 text-white shadow-md shadow-green-500/25"
-                                : "text-gray-900 hover:bg-gray-100 hover:scale-105"
-                            } ${!day ? "invisible" : ""} ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-transparent" : ""}`}
-                            disabled={!user}
-                          >
-                            {day}
-                          </button>
-                        ))}
-                      </div>
-
-                      <div className="mt-6 space-y-3 pt-4 border-t border-gray-300">
-                        <div className="flex items-center gap-3 text-xs">
-                          <div className="w-3 h-3 bg-green-600 rounded-full shadow-sm"></div>
-                          <span className="text-gray-700">
-                            Izarangiye
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3 text-xs">
-                          <div className="w-3 h-3 bg-blue-600 rounded-full shadow-sm"></div>
-                          <span className="text-gray-700">
-                            Isomo ry'uy'umunsi
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </section>
-
-                {/* Weekly Progress */}
-                <section>
-                  <Card className="bg-blue-50 text-gray-900 shadow-lg">
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold mb-4 text-gray-900">Weekly Progress</h3>
-                      {user ? (
-                        <>
-                          <div className="space-y-4">
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm text-gray-700">
-                                Icyo cyo kwiga
-                              </span>
-                              <span className="text-sm font-semibold text-gray-900">
-                                {Math.floor(userProgress.learningTime / 60)}h{" "}
-                                {userProgress.learningTime % 60}m
-                              </span>
-                            </div>
-                            <Progress
-                              value={(userProgress.learningTime / (10 * 60)) * 100}
-                              className="h-2 bg-blue-200"
-                            />
-
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm text-gray-700">
-                                Amasomo warangije
-                              </span>
-                              <span className="text-sm font-semibold text-gray-900">
-                                {userProgress.lessonsCompleted}/
-                                {userProgress.totalLessons}
-                              </span>
-                            </div>
-                            <Progress
-                              value={
-                                (userProgress.lessonsCompleted /
-                                  userProgress.totalLessons) *
-                                100
-                              }
-                              className="h-2 bg-blue-200"
-                            />
-
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm text-gray-700">
-                                Practice Tests
-                              </span>
-                              <span className="text-sm font-semibold text-gray-900">
-                                {userProgress.practiceTests}% Avg.
-                              </span>
-                            </div>
-                            <Progress
-                              value={userProgress.practiceTests}
-                              className="h-2 bg-blue-200"
-                            />
+              {/* Right Column - Calendar & Progress - Fixed/Sticky */}
+              <div className="w-80 flex-shrink-0 space-y-8">
+                {/* Study Calendar - Sticky */}
+                <div className="sticky top-6">
+                  <section>
+                    <Card className="bg-white shadow-lg">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="p-2 rounded-xl bg-primary/10">
+                            <Calendar className="h-5 w-5 text-primary" />
                           </div>
+                          <div>
+                            <h3 className="font-semibold text-gray-900">
+                              Kalendari
+                            </h3>
+                            <p className="text-sm text-gray-700">
+                              Genzura uko wize
+                            </p>
+                          </div>
+                        </div>
 
+                        <div className="flex items-center justify-between mb-4">
                           <Button
-                            variant="outline"
-                            className="w-full mt-6 bg-blue-100 hover:bg-blue-200 text-gray-900 h-10"
-                            onClick={viewDetailedAnalytics}
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 hover:bg-gray-100 text-gray-700"
+                            onClick={handlePrevMonth}
                           >
-                            Reba byose
+                            <ChevronLeft className="h-4 w-4" />
                           </Button>
-                        </>
-                      ) : (
-                        <div className="text-center py-8">
-                          <Users className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                          <p className="text-gray-700 mb-4">
-                            Injira utangire gukora amasuzuma
-                          </p>
+                          <span className="text-sm font-semibold text-gray-900">
+                            {getMonthName(currentMonth)} {currentYear}
+                          </span>
                           <Button
-                            className="bg-blue-600 hover:bg-blue-700 text-white"
-                            onClick={handleLoginRedirect}
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 hover:bg-gray-100 text-gray-700"
+                            onClick={handleNextMonth}
                           >
-                            Injira ukurikirane uko wiga
+                            <ChevronRight className="h-4 w-4" />
                           </Button>
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </section>
+
+                        <div className="grid grid-cols-7 gap-1 mb-3">
+                          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
+                            (day) => (
+                              <div
+                                key={day}
+                                className="text-center text-xs font-semibold text-gray-700 py-2"
+                              >
+                                {day.charAt(0)}
+                              </div>
+                            )
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-7 gap-1">
+                          {generateCalendarDays().map((day, index) => (
+                            <button
+                              key={index}
+                              onClick={() => day && handleCalendarDayClick(day)}
+                              className={`h-8 rounded-lg text-xs font-medium transition-all ${
+                                day === new Date().getDate() &&
+                                currentMonth === new Date().getMonth() &&
+                                currentYear === new Date().getFullYear()
+                                  ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105"
+                                  : day &&
+                                    day <= new Date().getDate() &&
+                                    currentMonth === new Date().getMonth() &&
+                                    currentYear === new Date().getFullYear()
+                                  ? "bg-green-600 text-white shadow-md shadow-green-500/25"
+                                  : "text-gray-900 hover:bg-gray-100 hover:scale-105"
+                              } ${!day ? "invisible" : ""} ${!user ? "opacity-50 cursor-not-allowed hover:scale-100 hover:bg-transparent" : ""}`}
+                              disabled={!user}
+                            >
+                              {day}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="mt-6 space-y-3 pt-4 border-t border-gray-300">
+                          <div className="flex items-center gap-3 text-xs">
+                            <div className="w-3 h-3 bg-green-600 rounded-full shadow-sm"></div>
+                            <span className="text-gray-700">
+                              Izarangiye
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs">
+                            <div className="w-3 h-3 bg-blue-600 rounded-full shadow-sm"></div>
+                            <span className="text-gray-700">
+                              Isomo ry'uy'umunsi
+                            </span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </section>
+                </div>
+
+                {/* Weekly Progress - Sticky below Calendar */}
+                <div className="sticky top-[400px]">
+                  <section>
+                    <Card className="bg-blue-50 text-gray-900 shadow-lg">
+                      <CardContent className="p-6">
+                        <h3 className="font-semibold mb-4 text-gray-900">Weekly Progress</h3>
+                        {user ? (
+                          <>
+                            <div className="space-y-4">
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm text-gray-700">
+                                  Icyo cyo kwiga
+                                </span>
+                                <span className="text-sm font-semibold text-gray-900">
+                                  {Math.floor(userProgress.learningTime / 60)}h{" "}
+                                  {userProgress.learningTime % 60}m
+                                </span>
+                              </div>
+                              <Progress
+                                value={(userProgress.learningTime / (10 * 60)) * 100}
+                                className="h-2 bg-blue-200"
+                              />
+
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm text-gray-700">
+                                  Amasomo warangije
+                                </span>
+                                <span className="text-sm font-semibold text-gray-900">
+                                  {userProgress.lessonsCompleted}/
+                                  {userProgress.totalLessons}
+                                </span>
+                              </div>
+                              <Progress
+                                value={
+                                  (userProgress.lessonsCompleted /
+                                    userProgress.totalLessons) *
+                                  100
+                                }
+                                className="h-2 bg-blue-200"
+                              />
+
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm text-gray-700">
+                                  Practice Tests
+                                </span>
+                                <span className="text-sm font-semibold text-gray-900">
+                                  {userProgress.practiceTests}% Avg.
+                                </span>
+                              </div>
+                              <Progress
+                                value={userProgress.practiceTests}
+                                className="h-2 bg-blue-200"
+                              />
+                            </div>
+
+                            <Button
+                              variant="outline"
+                              className="w-full mt-6 bg-blue-100 hover:bg-blue-200 text-gray-900 h-10"
+                              onClick={viewDetailedAnalytics}
+                            >
+                              Reba byose
+                            </Button>
+                          </>
+                        ) : (
+                          <div className="text-center py-8">
+                            <Users className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                            <p className="text-gray-700 mb-4">
+                              Injira utangire gukora amasuzuma
+                            </p>
+                            <Button
+                              className="bg-blue-600 hover:bg-blue-700 text-white"
+                              onClick={handleLoginRedirect}
+                            >
+                              Injira ukurikirane uko wiga
+                            </Button>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </section>
+                </div>
               </div>
             </div>
           </div>

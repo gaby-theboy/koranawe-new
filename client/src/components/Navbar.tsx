@@ -93,7 +93,7 @@ export default function Navbar() {
                 <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
                   <span className="text-primary-foreground font-bold text-xl">K</span>
                 </div>
-                <span className="font-bold text-xl">Kora</span>
+                <span className="font-bold text-xl">KoraNawe</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-20 h-9 bg-muted rounded-md animate-pulse"></div>
@@ -111,7 +111,7 @@ export default function Navbar() {
                 <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
                   <span className="text-primary-foreground font-bold text-lg">K</span>
                 </div>
-                <span className="font-bold text-xl">Kora</span>
+                <span className="font-bold text-xl">KoraNawe</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 bg-muted rounded-full animate-pulse"></div>
@@ -148,7 +148,7 @@ export default function Navbar() {
                   K
                 </span>
               </div>
-              <span className="font-bold text-xl">Kora</span>
+              <span className="font-bold text-xl">KoraNawe</span>
             </Link>
 
             {/* RIGHT — NAV ITEMS */}
@@ -188,7 +188,7 @@ export default function Navbar() {
                   K
                 </span>
               </div>
-              <span className="font-bold text-xl">Kora</span>
+              <span className="font-bold text-xl">KoraNawe</span>
             </Link>
 
             <div className="flex items-center gap-2">
