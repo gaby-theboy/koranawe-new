@@ -284,8 +284,7 @@ const transformQuestions = (questionSets: QuestionSet[] | null | undefined, user
     console.warn('questionSets is not an array:', questionSets);
     return [];
   }
-  
-  console.log('User plan in transform:', userPlan);
+
   
   return questionSets.map((set, index) => {
     const setNumber = set.setNumber || index + 1;
@@ -320,7 +319,6 @@ const transformQuestions = (questionSets: QuestionSet[] | null | undefined, user
       }
     }
     
-    console.log(`Set ${setNumber}: Premium=${isPremium}, RequiresLogin=${requiresLogin}, Plan=${userPlan?.planName}`);
     
     return {
       id: setNumber.toString(),
@@ -329,7 +327,7 @@ const transformQuestions = (questionSets: QuestionSet[] | null | undefined, user
       questionsCount: set.questions?.length || 0,
       isPremium,
       requiresLogin,
-      duration: Math.ceil((set.questions?.length || 0) * 0.05),
+      duration: Math.ceil((set.questions?.length || 0) * 1),
       difficulty: setNumber === 1 ? "Gutangira" : setNumber === 2 ? "Hagati" : "Ikizamini",
       category: "Iby'umuhanda",
       completed: false,
@@ -405,7 +403,6 @@ useEffect(() => {
     
     // Handle both old and new parameters
     if (examFromHomepage === "full-exam" || (examFromHomepage === "direct" && examSource === "homepage")) {
-      console.log("Coming from homepage with direct exam intent");
       setLoadingHomepageExam(true);
       
       // Try to get exam data from localStorage
@@ -420,7 +417,6 @@ useEffect(() => {
             const examQuestions = transformApiQuestionsToQuizFormat(questionsData.randomSet.questions);
             setHomepageExamQuestions(examQuestions);
             
-            console.log("Loaded homepage exam questions:", examQuestions.length);
             
             // Create a unique quiz for homepage exam
             const homepageQuiz = {
@@ -430,7 +426,7 @@ useEffect(() => {
               questionsCount: examQuestions.length,
               isPremium: true,
               requiresLogin: true,
-              duration: Math.ceil(examQuestions.length * 0.2),
+              duration: Math.ceil(examQuestions.length * 1),
               difficulty: "Hagati",
               category: "Iby'umuhanda",
               completed: false,
@@ -476,7 +472,6 @@ useEffect(() => {
     
     // Check if we have cached data
     if (quizzesCache && cacheTimestamp && (now - cacheTimestamp) < CACHE_DURATION) {
-      console.log('Using cached quizzes');
       setTransformedQuizzes(quizzesCache);
       return;
     }
@@ -502,7 +497,7 @@ useEffect(() => {
   // NEW EFFECT: Handle homepage exam after data is loaded
   useEffect(() => {
     if (loadingHomepageExam && homepageExamData && homepageExamQuestions.length > 0) {
-      console.log("Processing homepage exam...");
+     
       
       // Set the quiz and go to exam prep
       setSelectedQuiz("homepage-exam");
@@ -517,30 +512,14 @@ useEffect(() => {
     }
   }, [loadingHomepageExam, homepageExamData, homepageExamQuestions]);
 
-  // Debug logs to track data flow
-  useEffect(() => {
-    console.log('=== DATA FLOW DEBUG ===');
-    console.log('Question sets from hook:', questionSets);
-    console.log('User plan:', userPlan);
-    console.log('Number of sets:', questionSets?.length);
-    console.log('Loading state:', loading);
-    console.log('Error state:', error);
-    console.log('Transformed quizzes:', transformedQuizzes.length);
-    console.log('Is transforming:', isTransforming);
-    console.log('Homepage exam data:', homepageExamData);
-    console.log('Homepage exam questions:', homepageExamQuestions.length);
-  }, [questionSets, userPlan, loading, error, transformedQuizzes, isTransforming, homepageExamData, homepageExamQuestions]);
-
   // Filter quizzes based on user status and plan
   const getAvailableQuizzes = () => {
     if (isGuest) {
       // Guest users only see non-premium, no-login-required sets
       const guestQuizzes = transformedQuizzes.filter(quiz => !quiz.isPremium && !quiz.requiresLogin);
-      console.log('Guest available quizzes:', guestQuizzes.length);
       return guestQuizzes;
     } else {
       // Logged-in users see all sets based on their plan
-      console.log('Logged-in user available quizzes:', transformedQuizzes.length);
       return transformedQuizzes;
     }
   };
@@ -612,7 +591,6 @@ useEffect(() => {
   const isAnswerCorrect = (choiceId: string) => {
     if (!currentQ) return false;
     const correctAnswer = getCorrectAnswer();
-    console.log(`Checking answer: choiceId=${choiceId}, correctAnswer=${correctAnswer}, isCorrect=${choiceId === correctAnswer}`);
     return choiceId === correctAnswer;
   };
 
@@ -634,7 +612,6 @@ useEffect(() => {
     }
 
     const correct = isAnswerCorrect(choiceId);
-    console.log(`Answer selected: ${choiceId}, correct=${correct}`);
     setSelectedAnswer(choiceId);
     setAnswers(prev => ({
       ...prev,
@@ -665,7 +642,6 @@ useEffect(() => {
     correctAnswers: correctAnswersCount
   };
   
-  console.log("Time's up! Results collected from Ref:", resultsData);
   setLocation(`/results?data=${encodeURIComponent(JSON.stringify(resultsData))}`);
 };
 
@@ -738,7 +714,6 @@ const handleFinish = () => {
 
   const handleStartExam = () => {
     if (isReady && currentQuiz) {
-      console.log("Starting exam for quiz:", currentQuiz.title);
       setExamStarted(true);
       setCurrentView("exam");
       // Reset answers when starting exam
@@ -1025,7 +1000,7 @@ const handleFinish = () => {
                               </div>
                               <div className="flex items-center gap-1">
                                 <Clock className="h-3 w-3" />
-                                <span>Iminota {homepageExamData.duration}</span>
+                                <span>Iminota 20</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <span>{homepageExamData.category}</span>

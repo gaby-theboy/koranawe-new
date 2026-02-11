@@ -12,7 +12,6 @@ export default function SignupPage() {
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup:", name, email, password);
   };
 
   return (

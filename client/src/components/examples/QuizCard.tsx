@@ -16,7 +16,6 @@ export default function QuizCardExample() {
           { id: "4", text: "Parking is prohibited", isCorrect: false },
         ]}
         onAnswer={(choiceId, isCorrect) => {
-          console.log('Answer selected:', choiceId, 'Correct:', isCorrect)
         }}
       />
     </div>

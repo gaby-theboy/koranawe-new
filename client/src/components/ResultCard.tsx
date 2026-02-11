@@ -35,16 +35,10 @@ export default function ResultsPage() {
   }
 
   const { questions, userAnswers, totalQuestions, timeSpent, quizTitle, score, correctAnswers: providedCorrectAnswers } = resultsData;
-
-  // Log the data structure for debugging
-  console.log("Results data:", resultsData);
-  console.log("User answers structure:", userAnswers);
-  console.log("First user answer:", userAnswers[0]);
   
   // Calculate correct answers - FIXED VERSION
   // userAnswers is an object like: {0: {answer: "A", isCorrect: true}, 1: {answer: "B", isCorrect: false}, ...}
   const correctAnswers = Object.values(userAnswers || {}).filter((answer: any) => {
-    console.log("Checking answer:", answer);
     return answer && answer.isCorrect === true;
   }).length;
 

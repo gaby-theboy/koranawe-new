@@ -168,7 +168,6 @@ const ChapterQuizModal = ({
       const now = Date.now();
       const cachedQuiz = quizCache[chapterId];
       if (cachedQuiz && (now - cachedQuiz.timestamp) < CACHE_DURATION) {
-        console.log('Using cached quiz questions for chapter:', chapterId);
         setQuizQuestions(cachedQuiz.data);
         setNoQuestionsAvailable(cachedQuiz.data.length === 0);
         return;
@@ -664,7 +663,6 @@ export default function LessonsPage() {
       // Check cache first
       const now = Date.now();
       if (chaptersCache && cacheTimestamp && (now - cacheTimestamp) < CACHE_DURATION) {
-        console.log('Using cached chapters');
         setChapters(chaptersCache);
         
         // If URL has a section ID, load that section
@@ -705,7 +703,6 @@ export default function LessonsPage() {
     const now = Date.now();
     const cachedLesson = lessonsCache[sectionId];
     if (cachedLesson && (now - cachedLesson.timestamp) < CACHE_DURATION) {
-      console.log('Using cached lessons for section:', sectionId);
       setLessons(cachedLesson.data);
       setSelectedSection(sectionId);
       setSelectedLessonIndex(0);

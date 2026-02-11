@@ -45,7 +45,6 @@ export default function ResultsPage() {
     if (dataParam) {
       try {
         const parsedData: ResultsData = JSON.parse(decodeURIComponent(dataParam));
-        console.log("Amakuru y'ibisubizo yakiriwe:", parsedData);
         setResultsData(parsedData);
       } catch (error) {
         console.error("Ikosa mu gusobanura amakuru y'ibisubizo:", error);

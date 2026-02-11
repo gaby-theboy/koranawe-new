@@ -12,7 +12,6 @@ export default function AdminPage() {
 
   const handleQuestionsUpload = () => {
     if (questionsFile) {
-      console.log("Uploading questions:", questionsFile.name);
       toast({
         title: "Questions Imported",
         description: `Successfully imported questions from ${questionsFile.name}`,
@@ -23,7 +22,6 @@ export default function AdminPage() {
 
   const handleLessonsUpload = () => {
     if (lessonsFile) {
-      console.log("Uploading lessons:", lessonsFile.name);
       toast({
         title: "Lessons Imported",
         description: `Successfully imported lessons from ${lessonsFile.name}`,

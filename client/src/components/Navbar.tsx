@@ -78,7 +78,6 @@ export default function Navbar() {
 
   const handleLanguageChange = (languageCode: string) => {
     setCurrentLanguage(languageCode);
-    console.log("Language changed to:", languageCode);
   };
 
   // Show loading state

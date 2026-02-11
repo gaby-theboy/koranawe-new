@@ -23,7 +23,6 @@ export default function LandNav() {
 
   const handleLanguageChange = (languageCode: string) => {
     setCurrentLanguage(languageCode);
-    console.log("Language changed to:", languageCode);
   };
 
   return (

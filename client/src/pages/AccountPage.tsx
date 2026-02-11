@@ -128,7 +128,6 @@ export default function AccountPage() {
       const now = Date.now();
       // Check cache first
       if (userDataCache && cacheTimestamp && (now - cacheTimestamp) < CACHE_DURATION) {
-        console.log('Using cached user data');
         return userDataCache;
       }
       
@@ -186,7 +185,6 @@ export default function AccountPage() {
     // Check cache first
     const now = Date.now();
     if (userPlanCache && userPlansHistoryCache.length > 0 && (now - (cacheTimestamp || 0)) < CACHE_DURATION) {
-      console.log('Using cached user plan data');
       setUserPlan(userPlanCache);
       setUserPlansHistory(userPlansHistoryCache);
       return;

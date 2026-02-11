@@ -52,13 +52,12 @@ export const useQuestions = () => {
         try {
           const parsedUser = JSON.parse(userData);
           userId = parsedUser?._id || '';
-          console.log('Extracted user ID:', userId);
+          
         } catch (parseError) {
           console.error('Error parsing user data from localStorage:', parseError);
         }
       }
 
-      console.log('Final userId being sent:', userId);
 
       const response = await fetch('https://dataapis.wixsite.com/kora/_functions/AllQuestionsDataInSets/', {
         method: 'POST',
@@ -84,9 +83,6 @@ export const useQuestions = () => {
       const questionSets = data.sets?.sets || [];
       setQuestions(questionSets);
       
-      console.log('User plan:', data.sets?.userPlan);
-      console.log('Total sets:', data.sets?.totalSets);
-      console.log('Questions sets:', questionSets);
       
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch questions');

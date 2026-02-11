@@ -153,9 +153,6 @@ const fetchRandomExam = async () => {
     
     const data = await response.json();
     
-    // Log the response to understand the structure
-    console.log('Exam API response:', data);
-    
     // Handle different response structures
     if (data) {
       let examData;
@@ -183,7 +180,7 @@ const fetchRandomExam = async () => {
           description: examData.description || examData.desc || "Isuzuma ry'ibiganiro by'imodoka",
           difficulty: examData.difficulty || examData.level || "Medium",
           questionCount: examData.questionCount || examData.totalQuestions || examData.questions || 20,
-          duration: examData.duration || examData.timeLimit || 30,
+          duration: examData.duration || examData.timeLimit || 20,
         });
       } else {
         // If no exam data found, use fallback
@@ -412,7 +409,6 @@ const mobileWeekDays = ["S", "M", "T", "W", "T", "F", "S"]; // Index: 0-6
 // Modified startExam function for homepage
 const startExam = () => {
   requireAuth(async () => {
-    console.log("Starting exam...");
     
     try {
       // Get user ID
@@ -505,7 +501,6 @@ const startExam = () => {
   // Actions that require authentication
   const startQuiz = (quizId: string) => {
     requireAuth(() => {
-      console.log("Starting quiz navigation");
       setLocation(`/ibibazo`);
     }, "take quizzes");
   };
@@ -620,7 +615,7 @@ const startExam = () => {
                     <div className="grid grid-cols-7 gap-1">
                       {mobileWeekDays.map((day, index) => (
                         <button
-                          key={day}
+                          key={index}
                           onClick={() => handleDaySelect(index)}
                           className={`
                             flex flex-col items-center justify-center gap-1 
@@ -753,11 +748,11 @@ const startExam = () => {
                         <div className="flex items-center justify-between text-xs pt-2">
                           <div className="flex items-center gap-2 text-gray-800">
                             <BookOpen className="h-3 w-3" />
-                            <span>{randomExam.questionCount} Questions</span>
+                            <span>Ibibazo {randomExam.questionCount}</span>
                           </div>
                           <div className="flex items-center gap-2 text-gray-800">
                             <Clock className="h-3 w-3" />
-                            <span>{randomExam.duration} min</span>
+                            <span>Iminota {randomExam.duration}</span>
                           </div>
                         </div>
                       </>
@@ -957,7 +952,7 @@ const startExam = () => {
                       <div className="flex gap-3">
                         {weekDays.map((day, index) => (
                           <button
-                            key={day}
+                            key={index}
                             onClick={() => handleDaySelect(index)}
                             className={`flex-1 flex flex-col items-center gap-2 py-1 rounded-xl transition-all duration-300 group ${
                               index === selectedDay && user

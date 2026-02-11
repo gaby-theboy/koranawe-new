@@ -155,7 +155,6 @@ export default function LoginPage() {
           } : undefined
         };
 
-        console.log("Sending signup data:", signupData);
 
         const response = await fetch("https://dataapis.wixsite.com/kora/_functions/signUp", {
           method: "POST",
@@ -166,10 +165,8 @@ export default function LoginPage() {
         });
 
         const result = await response.json();
-        console.log("Signup response:", result);
 
         if (response.ok && result.statusCode === 200) {
-          console.log("Signup successful:", result);
           if (result.details) {
             localStorage.setItem("user", JSON.stringify(result.details));
           }
@@ -191,7 +188,6 @@ export default function LoginPage() {
           loginData.loginEmail = `${selectedCountry.code}${phone}${'@gmail.com'}`;
         }
 
-        console.log("Sending login data:", loginData);
 
         const response = await fetch("https://dataapis.wixsite.com/kora/_functions/login", {
           method: "POST",
@@ -202,10 +198,8 @@ export default function LoginPage() {
         });
 
         const result = await response.json();
-        console.log("Login response:", result);
 
         if (response.ok && result.login && result.statusCode === 200) {
-          console.log("Login successful:", result.details);
           if (result.details) {
             localStorage.setItem("user", JSON.stringify(result.details));
           }
