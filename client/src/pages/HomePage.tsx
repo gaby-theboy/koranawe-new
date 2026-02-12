@@ -177,8 +177,8 @@ const fetchRandomExam = async () => {
         setRandomExam({
           id: examData.id || examData._id || "1",
           title: examData.title || examData.name || "Ikizamini cy'isuzuma",
-          description: examData.description || examData.desc || "Isuzuma ry'ibiganiro by'imodoka",
-          difficulty: examData.difficulty || examData.level || "Medium",
+          description: examData.description || examData.desc || "Iki kizamini gikorwa mugihe waba urangije kwiga no kwisuzuma neza kandi kirahindagurika",
+          difficulty: examData.difficulty || examData.level || "kirahindagurika",
           questionCount: examData.questionCount || examData.totalQuestions || examData.questions || 20,
           duration: examData.duration || examData.timeLimit || 20,
         });
@@ -603,7 +603,7 @@ const startExam = () => {
                 <div className="flex items-center justify-between mb-3 px-1">
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-primary" />
-                    <span className="text-xs font-medium text-gray-800">Daily Progress</span>
+                    <span className="text-xs font-medium text-gray-800">Iminsi</span>
                   </div>
                   <span className="text-xs font-medium text-gray-700">
                     Icyumweru {Math.ceil((selectedDay + 1) / 7)} • {Math.round(((selectedDay + 1) / 7) * 100)}%

@@ -531,14 +531,12 @@ useEffect(() => {
     (selectedQuiz === "homepage-exam" ? homepageExamData : transformedQuizzes.find(quiz => quiz.id === selectedQuiz)) 
     : null;
 
-  // Check if current quiz is Set 1 to enable immediate feedback
-  useEffect(() => {
-    if (currentQuiz && (currentQuiz.id === "1")) {
-      setShowImmediateFeedback(true);
-    } else {
-      setShowImmediateFeedback(false);
-    }
-  }, [currentQuiz]);
+ useEffect(() => {
+  // Enable immediate feedback for ALL quizzes
+  if (currentQuiz) {
+    setShowImmediateFeedback(true);
+  }
+}, [currentQuiz]);
 
   // Initialize exam data from selected quiz
   const examData = currentQuiz ? {
@@ -1147,14 +1145,6 @@ const handleFinish = () => {
                             <div className="flex items-center gap-2 text-xs bg-green-50 px-3 py-2 rounded-lg">
                               <Check className="h-3 w-3 text-green-600" />
                               <span className="text-green-700 font-medium">Ishusho: {quiz.score}%</span>
-                            </div>
-                          )}
-
-                          {/* Feature indicator for Set 1 */}
-                          {quiz.id === "1" && (
-                            <div className="flex items-center gap-2 text-xs bg-blue-50 px-3 py-2 rounded-lg">
-                              <CheckCircle className="h-3 w-3 text-blue-600" />
-                              <span className="text-blue-700 font-medium">Bona ibisubizo byihuse nyuma yo guhitamo</span>
                             </div>
                           )}
 

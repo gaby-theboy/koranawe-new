@@ -314,7 +314,7 @@ export default function AccountPage() {
       icon: User,
     },
     {
-      title: "Ifatabuguzi",
+      title: "Gura Ifatabuguzi",
       value: getUserLevel(),
       hasArrow: true,
       type: "subscription",
@@ -930,10 +930,444 @@ export default function AccountPage() {
       <div className="min-h-screen bg-gray-50">
         <Navbar/>
         
-        {/* Mobile Layout (unchanged) */}
-        <div className="md:hidden">
-          {/* ... mobile layout code remains the same ... */}
+      {/* Mobile Layout */}
+      <div className="md:hidden">
+        {/* Green Overlay Section */}
+        <div className={`${isGuest ? "bg-gray-600" : "bg-green-600"} text-white pt-8 pb-16 px-6 relative`}>
+          <div className="absolute inset-0 opacity-10">
+            <div className={`w-full h-full bg-gradient-to-r ${
+              isGuest 
+                ? "from-gray-700 via-gray-500 to-gray-400" 
+                : "from-green-700 via-green-500 to-green-400"
+            }`}></div>
+          </div>
+          
+          <div className="relative z-10 max-w-md mx-auto">
+            {/* Profile Card on Background */}
+            <Card className={`${
+              isGuest 
+                ? "bg-white/10 backdrop-blur-sm border-white/20" 
+                : "bg-white/10 backdrop-blur-sm border-white/20"
+            } shadow-lg`}>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <Avatar className={`h-16 w-16 border-2 ${
+                    isGuest ? "border-gray-300" : "border-white"
+                  }`}>
+                    <AvatarFallback className={`${
+                      isGuest 
+                        ? "bg-gray-300 text-gray-600" 
+                        : "bg-white text-green-600"
+                    } font-semibold text-lg`}>
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <h2 className="text-white font-semibold text-lg mb-1">
+                      {getFullName()}
+                    </h2>
+                    <Badge className={`${getPlanBadgeColor()} border-0 px-3 py-1 font-semibold`}>
+                      {isPlanLoading ? "Free Plan" : getUserLevel()}
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+
+        {/* Content Section */}
+        <div className="max-w-md mx-auto px-6 -mt-8 relative z-20">
+          {/* Guest Mode Notice */}
+          {isGuest && (
+            <Card className="shadow-lg border-0 mb-4 bg-yellow-50 border-yellow-200">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <Info className="h-5 w-5 text-yellow-600" />
+                  <div>
+                    <p className="text-yellow-800 font-medium text-sm">
+                      Urikiri mu buryo bw'umushyitsi
+                    </p>
+                    <p className="text-yellow-700 text-xs">
+                      Injira kugirango ugere kuri buri kintu kandi uhunze amajya
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Settings Card - Only show when not in planHistory or about section on mobile */}
+          {activeSection !== "planHistory" && activeSection !== "about" ? (
+            <Card className="shadow-lg border-0">
+              <CardContent className="p-0">
+                {/* Settings Header */}
+                <div className="flex items-center gap-3 p-6 border-b border-gray-100">
+                  <Settings className={`h-5 w-5 ${isGuest ? "text-gray-600" : "text-green-600"}`} />
+                  <h3 className="text-lg font-semibold text-gray-900">Igenamigambi</h3>
+                </div>
+
+                {/* Menu Items - INCLUDING PROFILE INFORMATION */}
+                <div className="divide-y divide-gray-100">
+                  {menuItems.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={item.title}
+                        className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors cursor-pointer"
+                        onClick={() => item.type !== "notification" && handleMenuItemClick(item.type)}
+                      >
+                        <div className="flex items-center gap-3 flex-1">
+                          <div className={`p-2 rounded-lg ${
+                            isGuest ? "bg-gray-50" : "bg-green-50"
+                          }`}>
+                            <Icon className={`h-4 w-4 ${
+                              isGuest ? "text-gray-600" : "text-green-600"
+                            }`} />
+                          </div>
+                          <div className="flex-1">
+                            <span className="text-gray-900 font-medium block">
+                              {item.title}
+                            </span>
+                            {item.type === "language" && (
+                              <span className="text-gray-500 text-sm">
+                                {language}
+                              </span>
+                            )}
+                            {item.type === "subscription" && (
+                              <span className="text-gray-500 text-sm">
+                                {isPlanLoading ? "Free Plan" : getUserLevel()}
+                              </span>
+                            )}
+                            {item.type === "planHistory" && (
+                              <span className="text-gray-500 text-sm">
+                                {isPlanLoading ? "---" : item.value}
+                              </span>
+                            )}
+                            {item.type === "profileInfo" && (
+                              <span className="text-gray-500 text-sm">
+                                Reba hano
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          {item.type === "notification" && (
+                            <Switch
+                              checked={notificationsEnabled}
+                              onCheckedChange={setNotificationsEnabled}
+                            />
+                          )}
+                          
+                          {item.hasArrow && (
+                            <ChevronRight className="h-5 w-5 text-gray-400" />
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          ) : activeSection === "planHistory" ? (
+            // Plan History Content for Mobile
+            <div className="space-y-6">
+              <Card className="bg-green-100 text-black">
+                <CardContent className="p-6">
+                   
+              <div className="flex items-center gap-4 mb-2 ">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveSection("settings")}
+                  className="p-2"
+                >
+                  <ChevronRight className="h-5 w-5 rotate-180" />
+                </Button>
+                <h2 className="text-xl font-bold text-gray-900">Ifatabuguzi Ryanjye</h2>
+              </div>
+
+                  {/* Active Plan */}
+                  {userPlan && (
+                    <div className="mx-auto mb-8">
+                      <div className="flex justify-between mb-4">
+                        <h3 className="text-base font-semibold">
+                          {userPlan.planName}
+                        </h3>
+                        <div
+                          className={`text-xs px-3 py-1 rounded-3xl font-medium ${
+                            userPlan.status === "ACTIVE"
+                              ? "bg-green-600 text-black"
+                              : "bg-red-500 text-white"
+                          }`}
+                        >
+                          {userPlan.status === "ACTIVE" ? "Active" : "Canceled"}
+                        </div>
+                      </div>
+
+                      <div className="text-sm text-gray-600 space-y-2 mb-6">
+                        <div className="flex justify-between">
+                          <span>Itangiriro</span>
+                          <span className="text-gray-600">
+                            {formatDate(userPlan.startDate)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Iherezo</span>
+                          <span className="text-gray-600">
+                            {formatDate(userPlan.endDate)}
+                          </span>
+                        </div>
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        className="w-full bg-green-500 text-white border-gray-600 text-sm font-medium py-3 hover:bg-gray-600 transition"
+                        onClick={() => setLocation("/subscribe")}
+                      >
+                        Gucunga Ifatabuguzi
+                      </Button>
+
+                      <div className="border-t-2 border-green-600 mt-8"></div>
+                    </div>
+                  )}
+
+                  {/* Plan History */}
+                  <div className="mt-6">
+                    <div className="space-y-6">
+                      {userPlansHistory && userPlansHistory.length > 0 ? (
+                        userPlansHistory
+                          .filter((plan) => plan.id !== userPlan?.id)
+                          .map((plan) => (
+                            <div key={plan.id} className="mx-auto">
+                              <div className="flex justify-between mb-3">
+                                <h3 className="text-sm font-semibold text-black">
+                                  {plan.planName}
+                                </h3>
+                                <div
+                                  className={`text-xs px-2 py-1 rounded-3xl font-medium ${
+                                    plan.status === "ACTIVE"
+                                      ? "bg-green-600 text-black"
+                                      : plan.status === "EXPIRED" 
+                                      ? "bg-red-500 text-white"
+                                      : "bg-red-600 text-black"
+                                  }`}
+                                >
+                                  {plan.status === "ACTIVE" ? "Active" : "Canceled"}
+                                </div>
+                              </div>
+
+                              <div className="text-xs text-gray-600 space-y-1 mb-4">
+                                <div className="flex justify-between">
+                                  <span>Ryatangiye</span>
+                                  <span className="text-gray-600">
+                                    {formatDate(plan.startDate)}
+                                  </span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Rizarangira</span>
+                                  <span className="text-gray-600">
+                                    {formatDate(plan.endDate)}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="border-t-2 border-green-600 mt-4"></div>
+                            </div>
+                          ))
+                      ) : (
+                        <div className="text-center py-6">
+                          <History className="h-10 w-10 text-gray-600 mx-auto mb-3" />
+                          <p className="text-gray-400 text-sm">Nta mateka yabonetse</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setLocation("/subscribe")}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white text-sm"
+                >
+                  <Crown className="h-4 w-4 mr-1" />
+                  Hindura ugure
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setActiveSection("settings")}
+                  className="flex-1 text-sm"
+                >
+                  Subira inyuma
+                </Button>
+              </div>
+            </div>
+          ) : (
+            // About Content for Mobile
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 mb-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveSection("settings")}
+                  className="p-2"
+                >
+                  <ChevronRight className="h-5 w-5 rotate-180" />
+                </Button>
+                <h2 className="text-xl font-bold text-gray-900">Ibyerekeye Kora</h2>
+              </div>
+
+              <Card className="bg-white shadow-lg">
+                <CardContent className="p-4">
+                  <div className="space-y-4 text-gray-800">
+                    <h3 className="text-lg font-bold text-gray-900">
+                      Amategeko n' Amabwiriza
+                    </h3>
+                    
+                    <p className="text-xs">
+                      Izi Terms and Conditions zigenga uburyo ukoresha porogaramu KORANAWE. 
+                      Ukoresheje iyi porogaramu, uba wemeye kubahiriza amategeko n'amabwiriza akurikira.
+                    </p>
+
+                    <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">1. UKO POROGARAMU IKORESHWA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>KORANAWE ikwigisha amategeko y'umuhanda, ikaguha ibizamini byigana ibyemewe n'ibyapa.</li>
+                          <li>Ibisubizo biri muri porogaramu bishingiye ku makuru rusange ashyirwaho n' inzego zibishinzwe mu gihugu.</li>
+                          <li>Ukoresha porogaramu ku nyungu zawe bwite gusa, kandi ntugomba kuyikoresha mu buryo bushobora kuyangiza cyangwa kwangiza abandi.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">2. UBUBASHA N' UBRENGANZIRA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Ibiri muri porogaramu byose bigenewe KORANAWE.</li>
+                          <li>Ntibyemewe kubyigana, kubikwirakwiza cyangwa kubikoresha mu nyungu z'ubucuruzi.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">3. AMAKURU Y'UKORESHA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>koranawe ishobora gukusanya amakuru make ajyanye n'imikoreshereze yawe.</li>
+                          <li>Nta makuru yihariye ajyanye n'ukumenyekana twakira.</li>
+                          <li>Amakuru yose agirwa ibanga kandi ntatangwa ahandi.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">4. IBISUBIZO N' UBURYO BW'INYIGISHO</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>KORANAWE itanga amakuru agenewe kwigisha no gutegura ibizamini.</li>
+                          <li>Ntitwemeza ko buri gihe 100% byose ari ku rwego rumwe n'igihe nyacyo.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">5. AMAVUGURURA KURI POROGARAMU</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>KORANAWE ishobora kuvugurura porogaramu igihe icyo ari cyo cyose.</li>
+                          <li>Ukoresha porogaramu yemera ko aya mavugurura ashobora guhindura uburyo bw'imyigire.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">6. UBURENGANZIRA BW'UKORESHA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Ukoresha KORANAWE mu buryo butemewe, bizatuma uburenganzira bwo gukoresha porogaramu buhagarikwa.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">7. KWANGA MU GIHE HAGIZE IKIBAZO</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>koranawe ntishobora kubazwa ibiyivuyeho kubera amakosa y'umukoresha.</li>
+                          <li>Ibyemezo bya nyuma by'ibizamini bigengwa gusa n' inzego za Leta zibishinzwe.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">8. KUVUGURURA TERMS AND CONDITIONS</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Aya mabwiriza ashobora kuvugururwa igihe icyo ari cyo cyose.</li>
+                          <li>Komeza ugenzure igihe cy'amavugurura.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-1 text-sm">9. UBURYO BWO KUDUHAMAGARA</h4>
+                        <ul className="list-disc pl-4 space-y-1 text-xs">
+                          <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: WhatsApp: +250 792 356 500</li>
+                          <li>Email: support@koranawe.com</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-gray-300">
+                      <p className="text-xs italic text-gray-600">
+                        Ushaka kuba umwe mu bantu batanga ibikorwa bya KORANAWE? 
+                        <a href="https://wa.me/250792356500" className="text-green-600 hover:underline ml-1">
+                          Twandikire
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Button
+                variant="outline"
+                onClick={() => setActiveSection("settings")}
+                className="w-full text-sm"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Subira inyuma
+              </Button>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="space-y-3 mt-6">
+            {isGuest ? (
+              <>
+                <Button 
+                  className="w-full h-12 font-medium shadow-sm"
+                  onClick={handleLoginRedirect}
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  Injira mu Konti
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="w-full h-12 text-gray-700 hover:bg-gray-100 border border-gray-200 shadow-sm font-medium"
+                  onClick={handleSignupRedirect}
+                >
+                  Kora Konti Nshya
+                </Button>
+              </>
+            ) : (
+              <Button 
+                variant="ghost" 
+                className="w-full h-12 text-gray-700 hover:bg-gray-100 border border-gray-200 shadow-sm font-medium"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sohoka  {/* CHANGED FROM "Sohoka" TO "Injira" */}
+              </Button>
+            )}
+          </div>
+
+          {/* Version */}
+          <div className="text-center mt-8 pb-8">
+            <p className="text-gray-500 text-sm">
+              Kora • version
+            </p>
+          </div>
+        </div>
+      </div>
 
         {/* Desktop Layout - Sidebar + Content */}
         <div className="hidden md:block">

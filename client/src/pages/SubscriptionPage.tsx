@@ -93,7 +93,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
   // Mock data - replace with your actual data
   const subscriptionPlans: SubscriptionPlan[] = [
     {
-      id: "edbd983f-5ad7-4f9e-aa3e-5573840afcb8",
+      id: "e9d493c2-52a8-4ce8-8ec6-b8090e3c8ca6",
       name: "Basic Pack",
       price: 500,
       currency: "RWF",
@@ -107,7 +107,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
       ],
     },
     {
-      id: "964170b9-6a25-4b44-8741-97bd72999106",
+      id: "9be70c72-4b62-4048-afe3-227d0487cd3b",
       name: "Classic Pack",
       price: 1000,
       currency: "RWF",
@@ -121,7 +121,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
       ],
     },
     {
-      id: "14318a87-3bcf-4d45-ac8c-c62e4767ea9c",
+      id: "bc47ed44-b96a-4135-bdce-9a5a3c84a417",
       name: "Unique + Pack",
       price: 1500,
       currency: "RWF",
@@ -841,7 +841,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
                     className={`w-full flex items-center justify-between rounded-lg px-4 py-3 border ${
                       tempSelectedDuration === plan.id
                         ? "border-green-500 bg-green-50 dark:bg-green-600/20"
-                        : "border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#2a2a2a]"
+                        : "border-green-500 dark:border-green-50 bg-green-600/20"
                     }`}
                   >
                     <div className="flex items-center gap-3">
