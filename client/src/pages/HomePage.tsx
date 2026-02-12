@@ -1077,7 +1077,7 @@ const startExam = () => {
                                   <h3 className="text-xl font-bold mt-1 text-gray-900">
                                     {randomExam.title}
                                   </h3>
-                                  <p className="text-sm text-gray-800 max-w-xl">
+                                  <p className="text-xs text-gray-800 max-w-xl">
                                     {randomExam.description}
                                   </p>
                                 </>

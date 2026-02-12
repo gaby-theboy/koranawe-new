@@ -306,7 +306,7 @@ const transformQuestions = (questionSets: QuestionSet[] | null | undefined, user
         requiresLogin = setNumber > 1;
       } else if (planName === "basic") {
         // Basic plan - sets 1 and 2 are available
-        isPremium = setNumber > 2;
+        isPremium = setNumber > 3;
         requiresLogin = setNumber > 2;
       } else if (planName === "classic" || planName === "unique") {
         // Classic or Unique plan - all sets are available
@@ -1004,13 +1004,6 @@ const handleFinish = () => {
                                 <span>{homepageExamData.category}</span>
                               </div>
                             </div>
-
-                            {/* Feature indicator */}
-                            <div className="flex items-center gap-2 text-xs bg-blue-50 px-3 py-2 rounded-lg">
-                              <CheckCircle className="h-3 w-3 text-blue-600" />
-                              <span className="text-blue-700 font-medium">Bona ibisubizo byihuse nyuma yo guhitamo</span>
-                            </div>
-
                             {/* Start Button */}
                             <Button 
                               className="w-full gap-2 h-9 text-sm bg-purple-600 hover:bg-purple-700"
