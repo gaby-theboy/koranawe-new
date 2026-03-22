@@ -1248,7 +1248,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
             className={`relative py-2 cursor-pointer transition-all rounded-lg border-2 shadow-sm ${
               selectedPlan === plan.id
                 ? "border-green-500 bg-green-50 dark:bg-green-500/10"
-                : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800"
+                : "border-green-500 dark:border-green-600 bg-green-50 dark:bg-gray-800"
             }`}
           >
             {/* Floating Header Box */}
@@ -1257,7 +1257,7 @@ const [socket, setSocket] = useState<WebSocket | null>(null);
                 className={`px-2 py-1 text-[10px] font-semibold border rounded-md ${
                   selectedPlan === plan.id
                     ? "bg-green-500 text-white border-green-500"
-                    : "bg-gray-500 text-white border-gray-500"
+                    : "bg-green-500 text-white border-green-500"
                 }`}
               >
                 Icyumweru / Amezi
