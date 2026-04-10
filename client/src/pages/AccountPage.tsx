@@ -348,7 +348,7 @@ export default function AccountPage() {
   };
 
   const handleWhatsAppClick = () => {
-    const whatsappNumber = "+250792356500";
+    const whatsappNumber = "250788895345";
     const message = "Mwaramutse! Ndashaka kuvugana na Kora.";
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -861,7 +861,7 @@ export default function AccountPage() {
                     <div>
                       <h4 className="font-bold text-gray-900 mb-2">9. UBURYO BWO KUDUHAMAGARA</h4>
                       <ul className="list-disc pl-5 space-y-1 text-sm">
-                        <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: tuganiriza kuri WhatsApp: +250 792 356 500</li>
+                        <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: tuganiriza kuri WhatsApp: +250 788 895 345</li>
                         <li>Email: support@koranawe.com</li>
                       </ul>
                     </div>
@@ -870,7 +870,7 @@ export default function AccountPage() {
                   <div className="pt-4 border-t border-gray-300">
                     <p className="text-sm italic text-gray-600">
                       Ushaka kuba umwe mu bantu batanga ibikorwa bya KORANAWE? 
-                      <a href="https://wa.me/250792356500" className="text-green-600 hover:underline ml-1">
+                      <a href="https://wa.me/250788895345" className="text-green-600 hover:underline ml-1">
                         Twandikire
                       </a>
                     </p>
@@ -986,7 +986,7 @@ export default function AccountPage() {
                   <Info className="h-5 w-5 text-yellow-600" />
                   <div>
                     <p className="text-yellow-800 font-medium text-sm">
-                      Urikiri mu buryo bw'umushyitsi
+                      Uracyari mu buryo bw'umushyitsi
                     </p>
                     <p className="text-yellow-700 text-xs">
                       Injira kugirango ugere kuri buri kintu kandi uhunze amajya
@@ -1300,7 +1300,7 @@ export default function AccountPage() {
                       <div>
                         <h4 className="font-bold text-gray-900 mb-1 text-sm">9. UBURYO BWO KUDUHAMAGARA</h4>
                         <ul className="list-disc pl-4 space-y-1 text-xs">
-                          <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: WhatsApp: +250 792 356 500</li>
+                          <li>Ku bibazo, ibitekerezo cyangwa ibindi bisobanuro: WhatsApp: +250 788 895 345</li>
                           <li>Email: support@koranawe.com</li>
                         </ul>
                       </div>
@@ -1309,7 +1309,7 @@ export default function AccountPage() {
                     <div className="pt-4 border-t border-gray-300">
                       <p className="text-xs italic text-gray-600">
                         Ushaka kuba umwe mu bantu batanga ibikorwa bya KORANAWE? 
-                        <a href="https://wa.me/250792356500" className="text-green-600 hover:underline ml-1">
+                        <a href="https://wa.me/250788895345" className="text-green-600 hover:underline ml-1">
                           Twandikire
                         </a>
                       </p>

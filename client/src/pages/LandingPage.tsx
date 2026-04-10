@@ -355,7 +355,7 @@ export default function LandingPage() {
               <ul className="space-y-2 text-muted-foreground">
                 <li>Kigali, Rwanda</li>
                 <li>info@koraNawe.rw</li>
-                <li>+250 78x xxx xxx</li>
+                <li>+250 788 895 345</li>
               </ul>
             </div>
           </div>
